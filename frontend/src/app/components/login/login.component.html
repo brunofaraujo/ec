@@ -1,0 +1,25 @@
+<div class="mt-4 col-8 offset-2">
+  <div class="card">
+    <div class="card-header">Login Here</div>
+    <div class="card-body">
+      <form #loginForm="ngForm" (ngSubmit)="onsubmit()">
+        <div class="alert alert-danger" [hidden]="!error || response">{{error}}</div>
+        <div class="alert alert-success" [hidden]="!response || error">{{response}}</div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="form.email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="form.password" id="exampleInputPassword1" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid"><i class="fa fa-user-check"></i> Login</button>
+        <a routerLink="/signup" class="btn btn-info float-right"><i class="fa fa-file-signature"></i> Cadastrar-se</a>
+
+      </form>
+      <small class="float-right"><a routerLink="/request-password-reset">Reset Password</a></small>
+    </div>
+  </div>
+
+</div>
