@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Auth;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -19,7 +18,7 @@ class UserController extends Controller
     public function update()
     {
         if ( !Auth::user() ){
-            return response()->error('Not Authorized', 401);
+            return response()->json(['error' => 'Not Authorized'], 401);
         }
     }
 

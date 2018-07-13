@@ -8,7 +8,6 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -55,8 +54,8 @@ class ResetPasswordController extends Controller
     public function failedResponse()
     {
         return response()->json([
-            'error' => 'Email not found.'
-        ], Response::HTTP_NOT_FOUND);
+            'errors' => ['email' =>'Email not found.'
+        ]], Response::HTTP_NOT_FOUND);
     }
 
     public function successResponse()
@@ -80,11 +79,8 @@ class ResetPasswordController extends Controller
 
     private function tokenNotFoundResponse() {
 
-        return response()->json([
-            'error' => 'Token or Email incorrect', Response::HTTP_UNPROCESSABLE_ENTITY
-            // remember to include real email check too!!
-        ]);
-
+        return response()->json(['errors' => ['email' => 'Token or email mismatch. You must request a new token.']], Response::HTTP_UNPROCESSABLE_ENTITY);
+// remember to include real email check too!!
     }
 
     private function changePassword($request) {

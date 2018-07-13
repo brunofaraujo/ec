@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SignupRequest;
 use App\Role;
 use App\User;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -29,7 +28,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'E-mail e/ou senha não conferem.'], 401);
+            return response()->json(['errors' => 'E-mail e/ou senha não conferem.'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -54,7 +53,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['data' => 'Successfully logged out!']);
     }
 
     /**
