@@ -1,39 +1,36 @@
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import {HttpClientModule} from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
-
+import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from './@core/core.module';
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { RequestResetComponent } from './components/password/request-reset/request-reset.component';
-import { ResponseResetComponent } from './components/password/response-reset/response-reset.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { AppRoutingModule } from './app-routing.module';
-import {SnotifyModule, SnotifyService, ToastDefaults} from "ng-snotify";
-
+import { ThemeModule } from './@theme/theme.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    LoginComponent,
-    SignupComponent,
-    RequestResetComponent,
-    ResponseResetComponent,
-    ProfileComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule,
-    SnotifyModule
+
+    NgbModule.forRoot(),
+    ThemeModule.forRoot(),
+    CoreModule.forRoot(),
   ],
-  providers: [    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
-    SnotifyService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    { provide: APP_BASE_HREF, useValue: '/' },
+  ],
 })
-export class AppModule { }
+export class AppModule {
+}
