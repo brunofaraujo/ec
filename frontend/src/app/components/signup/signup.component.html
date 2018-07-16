@@ -1,0 +1,27 @@
+<div class="mt-4 col-8 offset-2">
+  <div class="card">
+    <div class="card-header">Faça seu cadastro</div>
+    <div class="card-body">
+      <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="alert alert-success" [hidden]="!response || error">{{response}}</div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" class="form-control" name="email" [(ngModel)]="form.email"  aria-describedby="emailHelp" placeholder="Enter email" required>
+          <div class="alert alert-danger" [hidden]="!error.email || response">{{error.email}}</div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" name="password" [(ngModel)]="form.password"  placeholder="Password" required>
+          <div class="alert alert-danger" [hidden]="!error.password || response">{{error.password}}</div>
+        </div>
+        <div class="form-group">
+          <label for="password_confirmation">Password confirm</label>
+          <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" [(ngModel)]="form.password_confirmation"  placeholder="Confirm password above" required>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid"><i class="fa fa-user-check"></i> Enviar</button>
+      </form>
+      {{requestSent}}
+    </div>
+  </div>
+
+</div>
