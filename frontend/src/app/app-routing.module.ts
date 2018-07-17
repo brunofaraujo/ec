@@ -1,24 +1,22 @@
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, ExtraOptions } from '@angular/router';
-import {LoginComponent} from './components/login/login.component';
-import {SignupComponent} from './components/signup/signup.component';
-import {ProfileComponent} from './components/profile/profile.component';
-import {RequestResetComponent} from './components/password/request-reset/request-reset.component';
-import {ResponseResetComponent} from './components/password/response-reset/response-reset.component';
-import {BeforeLoginService} from "./services/before-login.service";
-import {AfterLoginService} from "./services/after-login.service";
 import {
   NbAuthComponent,
   NbLoginComponent,
-  NbRegisterComponent,
   NbLogoutComponent,
+  NbRegisterComponent,
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
-import {MainComponent} from './components/main/main.component';
-import {NotFoundComponent} from './components/not-found/not-found.component';
+import {AuthGuardService} from './auth-guard.service';
+import {MainComponent} from './main/main.component';
+import {NotFoundComponent} from './pages/miscellaneous/not-found/not-found.component';
 
-const appRoutes: Routes = [
+const routes: Routes = [
+  { path: 'pages',
+    canActivate: [AuthGuardService],
+    loadChildren: 'app/pages/pages.module#PagesModule',
+  },
   {
     path: 'auth',
     component: NbAuthComponent,
@@ -49,53 +47,17 @@ const appRoutes: Routes = [
       },
     ],
   },
-  {
-    path: 'login',
-    component: LoginComponent,
-    canActivate: [BeforeLoginService]
-  },
-  {
-    path: 'signup',
-    component: SignupComponent,
-    canActivate: [BeforeLoginService]
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [AfterLoginService]
-  },
-  {
-    path: 'request-password-reset',
-    component: RequestResetComponent,
-    canActivate: [BeforeLoginService]
-  },
-  {
-    path: 'response-password-reset',
-    component: ResponseResetComponent,
-    canActivate: [BeforeLoginService]
-  },
-  {
-    path: '',
-    component: MainComponent
-  },
-  {
-    path: '**',
-    component: NotFoundComponent,
-  },
-  ];
+  { path: '', component: MainComponent },
+  { path: '**', component: NotFoundComponent },
+];
 
 const config: ExtraOptions = {
-  useHash: false,
+  useHash: true,
 };
 
-
 @NgModule({
-  imports: [
-    RouterModule.forRoot(appRoutes, config)
-  ],
-  exports: [
-    RouterModule
-  ],
-  declarations: []
+  imports: [RouterModule.forRoot(routes, config)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

@@ -25,11 +25,11 @@ Route::group([
 ], function ($router) {
 
     Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
+    Route::post('register', 'AuthController@signup');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
-    Route::post('send_password_reset_link', 'ResetPasswordController@sendEmail');
-    Route::post('reset_password', 'ResetPasswordController@process');
+    Route::post('request-pass', 'ResetPasswordController@sendEmail');
+    Route::post('reset-pass', 'ResetPasswordController@process');
 });
 

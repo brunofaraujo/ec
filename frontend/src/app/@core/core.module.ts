@@ -1,12 +1,13 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
+import {NbAuthJWTToken, NbAuthModule, NbPasswordAuthStrategy} from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
+import {RoleProvider} from '../role.provider';
 
 const socialLinks = [
   {
@@ -26,49 +27,69 @@ const socialLinks = [
   },
 ];
 
-export class NbSimpleRoleProvider extends NbRoleProvider {
-  getRole() {
-    // here you could provide any role based on any auth flow
-    return observableOf('guest');
-  }
-}
-
 export const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
   ...NbAuthModule.forRoot({
 
     strategies: [
-      NbDummyAuthStrategy.setup({
+      NbPasswordAuthStrategy.setup({
         name: 'email',
-        delay: 3000,
+        token: {
+          class: NbAuthJWTToken,
+          key: 'access_token',
+        },
+        baseEndpoint: 'http://localhost:8000',
+        login: {
+          endpoint: '/api/auth/login',
+          method: 'post',
+        },
+        register: {
+          endpoint: '/api/auth/register',
+          method: 'post',
+        },
+        logout: {
+          endpoint: '/api/auth/logout',
+          method: 'post',
+        },
+        requestPass: {
+          endpoint: '/api/auth/request-pass',
+          method: 'post',
+        },
+        resetPass: {
+          endpoint: '/api/auth/reset-pass',
+          method: 'post',
+        },
       }),
     ],
-    forms: {
-      login: {
-        socialLinks: socialLinks,
-      },
-      register: {
-        socialLinks: socialLinks,
-      },
-    },
+    forms: {},
   }).providers,
 
   NbSecurityModule.forRoot({
     accessControl: {
       guest: {
-        view: '*',
+        view: ['news', 'comments'],
       },
       user: {
         parent: 'guest',
-        create: '*',
-        edit: '*',
+        create: 'comments',
+      },
+      moderator: {
+        parent: 'user',
+        create: 'news',
         remove: '*',
       },
     },
   }).providers,
-
   {
-    provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
+    provide: NbRoleProvider,
+    useValue: {
+      getRole: () => {
+        return observableOf('guest');
+      },
+    },
+  },
+  {
+    provide: NbRoleProvider, useClass: RoleProvider,
   },
   AnalyticsService,
 ];
