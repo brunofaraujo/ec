@@ -9,7 +9,7 @@ import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
 import {RoleProvider} from '../role.provider';
 
-const socialLinks = [
+/*const socialLinks = [
   {
     url: 'https://github.com/akveo/nebular',
     target: '_blank',
@@ -25,7 +25,7 @@ const socialLinks = [
     target: '_blank',
     icon: 'socicon-twitter',
   },
-];
+];*/
 
 export const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
