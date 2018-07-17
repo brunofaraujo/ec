@@ -49,7 +49,7 @@ export const NB_CORE_PROVIDERS = [
         },
         logout: {
           endpoint: '/api/auth/logout',
-          method: 'post',
+          method: 'delete',
         },
         requestPass: {
           endpoint: '/api/auth/request-pass',
