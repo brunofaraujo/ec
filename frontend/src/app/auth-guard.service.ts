@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, Router} from '@angular/router';
-import {NbAuthService} from '@nebular/auth';
+import {CanActivate, CanActivateChild, Router} from '@angular/router';
+import {NbAuthService} from './@auth';
 import {tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 
-export class AuthGuardService implements CanActivate {
+export class AuthGuardService implements CanActivate, CanActivateChild {
 
   constructor(
     private authService: NbAuthService,
@@ -24,4 +24,16 @@ export class AuthGuardService implements CanActivate {
       }),
     );
   }
+
+  canActivateChild() {
+    return this.authService.isAuthenticated().pipe(
+      tap( authenticated => {
+        if (authenticated) {
+          this.router.navigateByUrl('/');
+        }
+      },
+    ),
+    )
+  }
+
 }

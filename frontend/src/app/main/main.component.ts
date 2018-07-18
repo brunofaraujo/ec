@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {NbAuthService} from "@nebular/auth";
-import {Router} from "@angular/router";
+import {NbAuthService} from '../@auth/services';
+
 
 @Component({
   selector: 'ngx-main',
@@ -9,17 +9,16 @@ import {Router} from "@angular/router";
 })
 export class MainComponent implements OnInit {
 
-  constructor(private authService: NbAuthService,
-              private router: Router) {
+  constructor(private authService: NbAuthService) {
   }
 
-  isAuth: boolean;
+  isAuth: any;
 
   ngOnInit() {
     this.authService.isAuthenticated().subscribe(
       res => {
         this.isAuth = res;
-      }
+      },
     )
   }
 
@@ -27,16 +26,13 @@ export class MainComponent implements OnInit {
     this.authService.isAuthenticated().subscribe(
       res => {
         this.isAuth = res;
-      }
+      },
     )
   }
 
-  /*  logout() {
-      localStorage.removeItem('auth_app_token');
-      this.refreshAuth();
-    }*/
-
-  sair():void {
-    console.log(this.authService.logout('email'));
+  logout() {
+    this.authService.logout('email');
+    localStorage.removeItem('auth_app_token');
+    this.refreshAuth();
   }
 }

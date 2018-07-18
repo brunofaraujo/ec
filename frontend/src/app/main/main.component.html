@@ -5,8 +5,8 @@
     <a href="#" routerLink="/auth/register"><p>Register page</p></a>
     <a href="#" routerLink="/pages"><p>Pages</p></a>
     <br>
-    <p>Is authenticated? {{isAuth}}</p>
-    <button *ngIf="isAuth" (click)="sair()" class="btn btn-hero-info">Logout</button>
+    <p>Is authenticated? {{isAuth|json}}</p>
+    <button *ngIf="isAuth" (click)="logout()" class="btn btn-hero-info">Logout</button>
   </nb-layout-column>
   <nb-layout-footer>Footer</nb-layout-footer>
 </nb-layout>

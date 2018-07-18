@@ -3,11 +3,10 @@ import { NgModule } from '@angular/core';
 import {
   NbAuthComponent,
   NbLoginComponent,
-  NbLogoutComponent,
   NbRegisterComponent,
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
-} from '@nebular/auth';
+} from './@auth/components';
 import {AuthGuardService} from './auth-guard.service';
 import {MainComponent} from './main/main.component';
 import {NotFoundComponent} from './pages/miscellaneous/not-found/not-found.component';
@@ -32,10 +31,6 @@ const routes: Routes = [
       {
         path: 'register',
         component: NbRegisterComponent,
-      },
-      {
-        path: 'logout',
-        component: NbLogoutComponent,
       },
       {
         path: 'request-password',

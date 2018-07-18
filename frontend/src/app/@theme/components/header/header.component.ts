@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 import {NbMenuService, NbSidebarService} from '@nebular/theme';
-/*import {UserService} from '../../../@core/data/users.service';*/
+import {UserService} from '../../../@core/data/users.service';
 import {AnalyticsService} from '../../../@core/utils/analytics.service';
-import {NbAuthJWTToken, NbAuthService} from '@nebular/auth';
+import {NbAuthJWTToken, NbAuthService} from '../../../@auth';
 
 @Component({
   selector: 'ngx-header',
@@ -23,14 +23,13 @@ export class HeaderComponent implements OnInit {
     },
     {
       title: 'Log out',
-      link: '/auth/logout',
   },
   ];
 
   constructor(
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
-/*    private userService: UserService,*/
+    private userService: UserService,
     private analyticsService: AnalyticsService,
     private authService: NbAuthService,
   ) {
@@ -44,8 +43,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-   /* this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.nick);*/
+    this.userService.getUsers()
+      .subscribe((users: any) => this.user = users.nick);
   }
 
   toggleSidebar(): boolean {

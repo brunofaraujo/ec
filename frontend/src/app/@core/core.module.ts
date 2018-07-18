@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NbAuthJWTToken, NbAuthModule, NbPasswordAuthStrategy} from '@nebular/auth';
+import {NbAuthJWTToken, NbAuthModule, NbPasswordAuthStrategy} from '../@auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
@@ -34,29 +34,25 @@ export const NB_CORE_PROVIDERS = [
     strategies: [
       NbPasswordAuthStrategy.setup({
         name: 'email',
+        baseEndpoint: 'http://localhost:8000/api',
         token: {
           class: NbAuthJWTToken,
           key: 'access_token',
         },
-        baseEndpoint: 'http://localhost:8000',
         login: {
-          endpoint: '/api/auth/login',
+          endpoint: '/auth/login',
           method: 'post',
         },
         register: {
-          endpoint: '/api/auth/register',
+          endpoint: '/auth/register',
           method: 'post',
         },
-        logout: {
-          endpoint: '/api/auth/logout',
-          method: 'delete',
-        },
         requestPass: {
-          endpoint: '/api/auth/request-pass',
+          endpoint: '/auth/request-pass',
           method: 'post',
         },
         resetPass: {
-          endpoint: '/api/auth/reset-pass',
+          endpoint: '/auth/reset-pass',
           method: 'post',
         },
       }),
