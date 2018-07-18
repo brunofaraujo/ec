@@ -12,6 +12,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
+    title: 'Profile',
+    icon: 'nb-person',
+    link: '/pages/user'
+  },
+  {
     title: 'UI Features',
     icon: 'nb-keypad',
     link: '/pages/ui-features',
