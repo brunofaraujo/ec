@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $roleArray = [
             [
                 'role' => 'admin',
-                'descricao' => 'SysAdmin level above God'
+                'descricao' => 'SysAdmin - level above God'
             ],
             [
                 'role' => 'participante',
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         $admin->role()->associate(Role::findOrFail(1))->saveOrFail();
 
 
-        factory(User::class, 50)->create()->each(function ($u) {
+        factory(User::class, 51)->create()->each(function ($u) {
             $u->profile()->save(factory(Profile::class)->make());
         });
 
