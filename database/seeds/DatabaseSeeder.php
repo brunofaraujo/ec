@@ -42,15 +42,14 @@ class DatabaseSeeder extends Seeder
         $admin = new User();
         $admin->email = 'pilinta@gmail.com';
         $admin->password = bcrypt('pilinta');
-        $admin->role()->associate(Role::findOrFail(1))->saveOrFail();
+        $admin->remember_token = str_random(10);
+        $admin->role()->associate(Role::findOrFail(1));
+        $admin->save();
+        $admin->profile()->save(factory(Profile::class)->make());
 
-
-        factory(User::class, 51)->create()->each(function ($u) {
+        factory(User::class, 50)->create()->each(function ($u) {
             $u->profile()->save(factory(Profile::class)->make());
         });
-
-
-
 
     }
 }
