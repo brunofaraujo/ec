@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
 
 import { NB_AUTH_OPTIONS } from '../../auth.options';
 import { getDeepFromObject } from '../../helpers';
-import { NbAuthService } from '../../services/auth.service';
-import { NbAuthResult } from '../../services/auth-result';
+import { NbAuthService } from '../../services';
+import { NbAuthResult } from '../../services';
 
 @Component({
-  selector: 'nb-logout',
+  selector: 'ngx-logout',
   template: `
     <div>Logging out, please wait...</div>
   `,

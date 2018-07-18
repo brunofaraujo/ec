@@ -6,11 +6,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { NbAuthService } from '../services/auth.service';
+import { NbAuthService } from '../services';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({
-  selector: 'nb-auth',
+  selector: 'ngx-auth',
   styleUrls: ['./auth.component.scss'],
   template: `
     <nb-layout>

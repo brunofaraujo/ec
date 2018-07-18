@@ -17,7 +17,7 @@ import {first} from 'rxjs/operators';
   selector: 'ngx-register',
   styleUrls: ['./register.component.scss'],
   template: `
-    <nb-auth-block>
+    <ngx-auth-block>
       <h2 class="title">Sign Up</h2>
       <form (ngSubmit)="register()" #form="ngForm">
 
@@ -145,7 +145,7 @@ import {first} from 'rxjs/operators';
           Already have an account? <a routerLink="../login"><strong>Sign in</strong></a>
         </small>
       </div>
-    </nb-auth-block>
+    </ngx-auth-block>
   `,
 })
 export class NbRegisterComponent implements OnInit {
