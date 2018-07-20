@@ -14,7 +14,27 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Profile',
     icon: 'nb-person',
-    link: '/pages/user'
+    link: '/pages/user',
+  },
+  {
+    title: 'Subscription',
+    icon: 'nb-compose',
+    link: '/pages/subscription',
+  },
+  {
+    title: 'Workshop',
+    icon: 'nb-title',
+    link: '/pages/workshop',
+  },
+  {
+    title: 'Presentation',
+    icon: 'nb-play-outline',
+    link: '/pages/presentation',
+  },
+  {
+    title: 'Certificate',
+    icon: 'nb-layout-default',
+    link: '/pages/certificate',
   },
   {
     title: 'UI Features',
@@ -55,6 +75,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  /*,
   {
     title: 'Forms',
     icon: 'nb-compose',
@@ -175,7 +196,5 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Reset Password',
         link: '/auth/reset-password',
-      },
-    ],
-  },
-];
+      },*/
+    ];

@@ -15,6 +15,21 @@ const routes: Routes = [{
     path: 'user',
     loadChildren: './profile/profile.module#ProfileModule',
   }, {
+    path: 'subscription',
+    loadChildren: './subscription/subscription.module#SubscriptionModule',
+  }, {
+    path: 'certificate',
+    loadChildren: './certificate/certificate.module#CertificateModule',
+  },
+    {
+      path: 'workshop',
+      loadChildren: './workshop/workshop.module#WorkshopModule',
+    },
+    {
+      path: 'presentation',
+      loadChildren: './presentation/presentation.module#PresentationModule',
+    },
+    {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {

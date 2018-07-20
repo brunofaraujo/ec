@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../@core/data/users.service';
 
 @Component({
   selector: 'ngx-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  public loading: boolean = false;
+  public user;
+  public error;
 
-  ngOnInit() {
+  constructor(private userService: UserService) {
   }
 
+  ngOnInit() {
+    this.loading = true;
+    this.userService.getUser().subscribe((data) => {
+      this.loading = false;
+      this.user = data;
+    },
+      (error) => {
+      this.loading = false;
+      this.error = error;
+      })
+  }
 }

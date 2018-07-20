@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     },
     {
       title: 'Log out',
-  },
+    },
   ];
 
   constructor(
@@ -43,17 +43,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.nick);
+    this.user = this.userService.user;
   }
 
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
-    return false;
-  }
-
-  toggleSettings(): boolean {
-    this.sidebarService.toggle(false, 'settings-sidebar');
     return false;
   }
 

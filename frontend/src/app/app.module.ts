@@ -7,7 +7,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,7 @@ import {AuthGuardService} from './auth-guard.service';
 import {MainModule} from './main/main.module';
 import {MainComponent} from './main/main.component';
 import {MiscellaneousModule} from './pages/miscellaneous/miscellaneous.module';
+import {NbAuthJWTInterceptor} from './@auth/services';
 
 @NgModule({
   declarations: [AppComponent, MainComponent],
@@ -37,6 +38,7 @@ import {MiscellaneousModule} from './pages/miscellaneous/miscellaneous.module';
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
     AuthGuardService,
+    { provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true},
   ],
 })
 export class AppModule {
