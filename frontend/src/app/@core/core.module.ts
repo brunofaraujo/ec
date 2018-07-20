@@ -8,6 +8,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
 import {RoleProvider} from '../role.provider';
+import {OptionsService} from './data/options.service';
 
 /*const socialLinks = [
   {
@@ -88,6 +89,7 @@ export const NB_CORE_PROVIDERS = [
     provide: NbRoleProvider, useClass: RoleProvider,
   },
   AnalyticsService,
+  OptionsService,
 ];
 
 @NgModule({

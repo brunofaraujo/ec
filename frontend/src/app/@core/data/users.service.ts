@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map';
+import {OptionsService} from './options.service';
 
 @Injectable()
 export class UserService {
@@ -9,13 +10,16 @@ export class UserService {
   public user;
   public error;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+              private options: OptionsService,
+              ) {
     this.user = [];
     this.error = false;
   }
 
   getUser(): Observable<any> {
-    const apiURL = 'http://localhost:8000/api/auth/me';
+    const apiURL = this.options.API_BASE_URL + '/auth/me';
     return this.http.post(apiURL, null).map(
       res => {
         return res;

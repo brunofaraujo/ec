@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
-import {ThemeModule} from "../../@theme/theme.module";
+import {ThemeModule} from '../../@theme/theme.module';
 
 const components = [
   ProfileComponent,
@@ -13,8 +13,8 @@ const components = [
   imports: [
     CommonModule,
     ThemeModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
   ],
-  declarations: [...components]
+  declarations: [...components],
 })
 export class ProfileModule { }

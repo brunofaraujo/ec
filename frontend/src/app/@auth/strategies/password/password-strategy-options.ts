@@ -40,7 +40,7 @@ export interface NbPasswordStrategyMessage {
 
 export class NbPasswordAuthStrategyOptions extends NbAuthStrategyOptions {
   name: string;
-  baseEndpoint? = '/api/auth/';
+  baseEndpoint ? = '/api/auth/';
   login?: boolean | NbPasswordStrategyModule = {
     alwaysFail: false,
     endpoint: 'login',
