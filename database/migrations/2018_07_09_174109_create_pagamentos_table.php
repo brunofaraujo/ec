@@ -17,6 +17,7 @@ class CreatePagamentosTable extends Migration
             $table->increments('id');
             $table->integer('inscricao_id')->nullable();
             $table->string('metodo')->nullable();
+            $table->string('token')->nullable();
             $table->string('status')->nullable();
             $table->double('valor')->nullable();
             $table->timestamps();

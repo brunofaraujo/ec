@@ -27,7 +27,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'View current',
-        link: '/pages/subscription/view',
+        link: '/pages/subscription/current',
       },
     ],
   },

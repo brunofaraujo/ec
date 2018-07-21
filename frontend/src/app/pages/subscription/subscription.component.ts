@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ngx-subscription',
-  templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.scss'],
+  template: `
+    <router-outlet></router-outlet>
+  `,
 })
 export class SubscriptionComponent implements OnInit {
 
