@@ -15,7 +15,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','signup']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signup']]);
     }
 
     /**
@@ -27,7 +27,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json(['errors' => 'E-mail e/ou senha não conferem.'], 401);
         }
 
@@ -41,22 +41,29 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(['data' => auth()->user()]);
+        return response()->json(auth()->user());
     }
-/*
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
 
-    public function logout()
+    public function profile()
     {
-        auth()->logout();
-
-        return response()->json(['data' => 'Successfully logged out!']);
+        $user = User::findOrFail(auth()->user()->getAuthIdentifier());
+        $user->profile;
+        return response()->json(['data' => $user]);
     }
+    /*
+        /**
+         * Log the user out (Invalidate the token).
+         *
+         * @return \Illuminate\Http\JsonResponse
 
-    */
+        public function logout()
+        {
+            auth()->logout();
+
+            return response()->json(['data' => 'Successfully logged out!']);
+        }
+
+        */
 
     /**
      * Refresh a token.

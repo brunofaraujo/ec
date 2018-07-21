@@ -12,8 +12,8 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-              private options: OptionsService,
-              ) {
+    private options: OptionsService,
+  ) {
     this.user = [];
     this.error = false;
   }
@@ -28,5 +28,17 @@ export class UserService {
         return err.message;
       },
     );
+  }
+
+  getProfile(): Observable<any> {
+    const apiURL = this.options.API_BASE_URL + '/auth/profile';
+    return this.http.post(apiURL, null).map(
+      res => {
+        return res;
+      },
+      error => {
+        return error.message;
+      },
+    )
   }
 }

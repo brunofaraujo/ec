@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInscricaosTable extends Migration
+class CreateModalidadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateInscricaosTable extends Migration
      */
     public function up()
     {
-        Schema::create('inscricaos', function (Blueprint $table) {
+        Schema::create('modalidades', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->nullable();
-            $table->integer('modalidade_id')->nullable();
-            $table->integer('oficina_id')->nullable();
-            $table->string('status')->nullable();
+            $table->string('nome');
+            $table->string('descricao');
+            $table->double('valor');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateInscricaosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inscricaos');
+        Schema::dropIfExists('modalidades');
     }
 }

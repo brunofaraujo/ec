@@ -17,7 +17,11 @@ class CreateProfilesTable extends Migration
             $table->increments('id');
             $table->string('cpf')->nullable();
             $table->integer('user_id')->nullable();
+            $table->integer('modalidade_id')->nullable();
             $table->string('nome')->nullable();
+            $table->string('titulo')->nullable();
+            $table->string('profissao')->nullable();
+            $table->string('empresa')->nullable();
             $table->string('genero')->nullable();
             $table->date('nascimento')->nullable();
             $table->string('rg_num')->nullable();

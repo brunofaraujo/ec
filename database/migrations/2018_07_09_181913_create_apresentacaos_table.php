@@ -16,7 +16,6 @@ class CreateApresentacaosTable extends Migration
         Schema::create('apresentacaos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('inscricao_id')->nullable();
-            $table->string('modalidade')->nullable();
             $table->string('titulo')->nullable();
             $table->text('resumo')->nullable();
             $table->string('autores')->nullable();

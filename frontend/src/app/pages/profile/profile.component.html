@@ -4,5 +4,5 @@
 <h1>User tab is working...</h1>
 <h3>User details:</h3>
 <h3 *ngIf="loading">Loading...</h3>
-<h3 *ngIf="!loading && !error">{{user|json}}</h3>
+<pre><h4 *ngIf="!loading && !error">{{user|json}}</h4></pre>
 <h3 class="text-danger" *ngIf="!loading && error">{{error.message}}</h3>
