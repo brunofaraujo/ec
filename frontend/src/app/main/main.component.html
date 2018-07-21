@@ -1,5 +1,15 @@
 <nb-layout>
-  <nb-layout-header>Header</nb-layout-header>
+  <nb-layout-header>
+    <nb-action *ngIf="isAuth">
+      <nb-card-body>
+        <nb-user size="middle"
+                 [nbContextMenu]="userMenu"
+                 [name]="user?.profile?.nome"
+                 [title]="user?.email">
+        </nb-user>
+      </nb-card-body>
+    </nb-action>
+  </nb-layout-header>
   <nb-layout-column>
     <a href="#" routerLink="/auth/login"><p>Login page</p></a>
     <a href="#" routerLink="/auth/register"><p>Register page</p></a>

@@ -7,6 +7,6 @@ $factory->define(Modalidade::class, function (Faker $faker) {
     return [
         'nome' => $faker->unique()->jobTitle,
         'descricao' => $faker->realText(),
-        'valor' => $faker->randomFloat(2,100,300),
+        'valor' => $faker->randomFloat(2,100,400),
     ];
 });

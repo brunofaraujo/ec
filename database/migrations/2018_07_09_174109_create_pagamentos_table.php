@@ -15,11 +15,11 @@ class CreatePagamentosTable extends Migration
     {
         Schema::create('pagamentos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('inscricao_id')->nullable();
-            $table->string('metodo')->nullable();
-            $table->string('token')->nullable();
-            $table->string('status')->nullable();
-            $table->double('valor')->nullable();
+            $table->integer('inscricao_id');
+            $table->string('metodo');
+            $table->string('token');
+            $table->string('status');
+            $table->decimal('valor', 9, 4);
             $table->timestamps();
         });
     }

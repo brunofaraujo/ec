@@ -17,7 +17,7 @@ class CreateModalidadesTable extends Migration
             $table->increments('id');
             $table->string('nome');
             $table->string('descricao');
-            $table->double('valor');
+            $table->decimal('valor', 9, 4);
             $table->timestamps();
         });
     }

@@ -17,13 +17,14 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.userService.getProfile().subscribe((data) => {
-      this.loading = false;
-      this.user = data;
-    },
+    this.userService.getProfile().subscribe(
+      (data) => {
+        this.loading = false;
+        this.user = data;
+      },
       (error) => {
-      this.loading = false;
-      this.error = error;
+        this.loading = false;
+        this.error = error;
       })
   }
 }

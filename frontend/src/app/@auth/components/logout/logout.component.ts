@@ -5,11 +5,9 @@
  */
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { NB_AUTH_OPTIONS } from '../../auth.options';
 import { getDeepFromObject } from '../../helpers';
 import { NbAuthService } from '../../services';
-import { NbAuthResult } from '../../services';
 
 @Component({
   selector: 'ngx-logout',
@@ -30,19 +28,17 @@ export class NbLogoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.logout(this.strategy);
+    this.logout();
   }
 
-  logout(strategy: string): void {
-    this.service.logout(strategy).subscribe((result: NbAuthResult) => {
-
-      const redirect = result.getRedirect();
-      if (redirect) {
-        setTimeout(() => {
-          return this.router.navigateByUrl(redirect);
-        }, this.redirectDelay);
-      }
-    });
+  logout(): any {
+    this.service.logout().subscribe(
+      () => {
+        return this.router.navigateByUrl('/');
+      },
+      (error) => {
+        return error;
+      })
   }
 
   getConfigValue(key: string): any {

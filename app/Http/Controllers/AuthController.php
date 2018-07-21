@@ -50,20 +50,14 @@ class AuthController extends Controller
         $user->profile;
         return response()->json(['data' => $user]);
     }
-    /*
-        /**
-         * Log the user out (Invalidate the token).
-         *
-         * @return \Illuminate\Http\JsonResponse
 
-        public function logout()
-        {
-            auth()->logout();
 
-            return response()->json(['data' => 'Successfully logged out!']);
-        }
+    public function logout()
+    {
+        auth()->logout();
 
-        */
+        return response()->json(['data' => 'Successfully logged out!']);
+    }
 
     /**
      * Refresh a token.

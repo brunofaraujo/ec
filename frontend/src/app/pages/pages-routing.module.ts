@@ -8,19 +8,20 @@ import {NotFoundComponent} from './miscellaneous/not-found/not-found.component';
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
-  children: [{
-    path: 'dashboard',
-    component: DashboardComponent,
-  }, {
-    path: 'user',
-    loadChildren: './profile/profile.module#ProfileModule',
-  }, {
-    path: 'subscription',
-    loadChildren: './subscription/subscription.module#SubscriptionModule',
-  }, {
-    path: 'certificate',
-    loadChildren: './certificate/certificate.module#CertificateModule',
-  },
+  children: [
+    {
+      path: 'dashboard',
+      component: DashboardComponent,
+    }, {
+      path: 'user',
+      loadChildren: './profile/profile.module#ProfileModule',
+    }, {
+      path: 'subscription',
+      loadChildren: './subscription/subscription.module#SubscriptionModule',
+    }, {
+      path: 'certificate',
+      loadChildren: './certificate/certificate.module#CertificateModule',
+    },
     {
       path: 'workshop',
       loadChildren: './workshop/workshop.module#WorkshopModule',

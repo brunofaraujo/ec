@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,14 +20,22 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 
-], function ($router) {
+], function () {
 
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@signup');
+    Route::post('logout', 'AuthController@logout');
     Route::post('profile', 'AuthController@profile');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
     Route::post('request-pass', 'ResetPasswordController@sendEmail');
     Route::post('reset-pass', 'ResetPasswordController@process');
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'subscription'
+], function () {
+   Route::get('modalidades', 'InscricaoController@getModalidades');
 });
 
