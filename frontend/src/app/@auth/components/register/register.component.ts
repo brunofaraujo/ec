@@ -4,14 +4,13 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 import {Component, Inject, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import { NB_AUTH_OPTIONS, NbAuthSocialLink } from '../../auth.options';
-import { getDeepFromObject } from '../../helpers';
+import {Router} from '@angular/router';
+import {NB_AUTH_OPTIONS, NbAuthSocialLink} from '../../auth.options';
+import {getDeepFromObject} from '../../helpers';
 
-import { NbAuthService } from '../../services';
-import { NbAuthResult } from '../../services';
+import {NbAuthService} from '../../services';
+import {NbAuthResult} from '../../services';
 import {first} from 'rxjs/operators';
-
 
 @Component({
   selector: 'ngx-register',
@@ -24,12 +23,12 @@ import {first} from 'rxjs/operators';
         <div *ngIf="showMessages.error && errors && errors.length > 0 && !submitted"
              class="alert alert-danger" role="alert">
           <div><strong>Oh snap!</strong></div>
-          <div *ngFor="let error of errors">{{ error }}</div>
+          <div *ngFor="let error of errors">{{ error | json }}</div>
         </div>
-        <div *ngIf="showMessages.success && messages && messages.length > 0 && !submitted"
+        <div *ngIf="showMessages.success && message && message.length > 0 && !submitted"
              class="alert alert-success" role="alert">
           <div><strong>Hooray!</strong></div>
-          <div *ngFor="let message of messages">{{ message }}</div>
+          <div *ngFor="let msg of message">{{ msg }}</div>
         </div>
 
         <div class="form-group">
@@ -39,14 +38,14 @@ import {first} from 'rxjs/operators';
                  [class.form-control-danger]="fullName.invalid && fullName.touched"
                  [required]="getConfigValue('forms.validation.fullName.required')"
                  [minlength]="getConfigValue('forms.validation.fullName.minLength')"
-                 [maxlength]="getConfigValue('forms.validation.fullName.maxLength')"
-                 autofocus>
-          <small class="form-text error" *ngIf="fullName.invalid && fullName.touched && fullName.errors?.required">
+                 [maxlength]="getConfigValue('forms.validation.fullName.maxLength')">
+          <small class="form-text error" *ngIf="fullName.invalid && fullName.touched && fullName?.errors?.required">
             Full name is required!
           </small>
           <small
             class="form-text error"
-            *ngIf="fullName.invalid && fullName.touched && (fullName.errors?.minlength || fullName.errors?.maxlength)">
+            *ngIf="fullName.invalid &&
+             fullName.touched && (fullName?.errors?.minlength || fullName?.errors?.maxlength)">
             Full name should contains
             from {{getConfigValue('forms.validation.fullName.minLength')}}
             to {{getConfigValue('forms.validation.fullName.maxLength')}}
@@ -60,11 +59,11 @@ import {first} from 'rxjs/operators';
                  class="form-control" placeholder="Email address" pattern=".+@.+\..+"
                  [class.form-control-danger]="email.invalid && email.touched"
                  [required]="getConfigValue('forms.validation.email.required')">
-          <small class="form-text error" *ngIf="email.invalid && email.touched && email.errors?.required">
+          <small class="form-text error" *ngIf="email.invalid && email.touched && email?.errors?.required">
             Email is required!
           </small>
           <small class="form-text error"
-                 *ngIf="email.invalid && email.touched && email.errors?.pattern">
+                 *ngIf="email.invalid && email.touched && email?.errors?.pattern">
             Email should be the real one!
           </small>
         </div>
@@ -77,12 +76,13 @@ import {first} from 'rxjs/operators';
                  [required]="getConfigValue('forms.validation.password.required')"
                  [minlength]="getConfigValue('forms.validation.password.minLength')"
                  [maxlength]="getConfigValue('forms.validation.password.maxLength')">
-          <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">
+          <small class="form-text error" *ngIf="password.invalid && password.touched && password?.errors?.required">
             Password is required!
           </small>
           <small
             class="form-text error"
-            *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">
+            *ngIf="password.invalid &&
+             password.touched && (password?.errors?.minlength || password?.errors?.maxlength)">
             Password should contains
             from {{ getConfigValue('forms.validation.password.minLength') }}
             to {{ getConfigValue('forms.validation.password.maxLength') }}
@@ -93,12 +93,12 @@ import {first} from 'rxjs/operators';
         <div class="form-group">
           <label for="input-re-password" class="sr-only">Repeat password</label>
           <input
-            name="rePass" [(ngModel)]="user.confirmPassword" type="password" id="input-re-password"
+            name="rePass" [(ngModel)]="user.password_confirmation" type="password" id="input-re-password"
             class="form-control" placeholder="Confirm Password" #rePass="ngModel"
             [class.form-control-danger]="(rePass.invalid || password.value != rePass.value) && rePass.touched"
             [required]="getConfigValue('forms.validation.password.required')">
           <small class="form-text error"
-                 *ngIf="rePass.invalid && rePass.touched && rePass.errors?.required">
+                 *ngIf="rePass.invalid && rePass.touched && rePass?.errors?.required">
             Password confirmation is required!
           </small>
           <small
@@ -156,7 +156,7 @@ export class NbRegisterComponent implements OnInit {
 
   submitted = false;
   errors: string[] = [];
-  messages: string[] = [];
+  message: string[] = [];
   user: any = {};
   socialLinks: NbAuthSocialLink[] = [];
 
@@ -175,13 +175,13 @@ export class NbRegisterComponent implements OnInit {
   }
 
   register(): void {
-    this.errors = this.messages = [];
+    this.errors = this.message = [];
     this.submitted = true;
 
     this.service.register(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
       if (result.isSuccess()) {
-        this.messages = result.getMessages();
+        this.message = result.getMessages();
       } else {
         this.errors = result.getErrors();
       }
@@ -198,9 +198,11 @@ export class NbRegisterComponent implements OnInit {
   getConfigValue(key: string): any {
     return getDeepFromObject(this.options, key, null);
   }
+
   isLoggedIn() {
     return this.service.isAuthenticated().pipe(first()).toPromise();
   }
+
   async redirect() {
     const user = await this.isLoggedIn();
     if (user) {

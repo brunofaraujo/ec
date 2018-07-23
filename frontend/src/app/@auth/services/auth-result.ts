@@ -4,14 +4,14 @@ export class NbAuthResult {
 
   protected token: NbAuthToken;
   protected errors: string[] = [];
-  protected messages: string[] = [];
+  protected message: string[] = [];
 
   // TODO: better pass object
   constructor(protected success: boolean,
               protected response?: any,
               protected redirect?: any,
               errors?: any,
-              messages?: any,
+              message?: any,
               token: NbAuthToken = null) {
 
     this.errors = this.errors.concat([errors]);
@@ -19,9 +19,9 @@ export class NbAuthResult {
       this.errors = errors;
     }
 
-    this.messages = this.messages.concat([messages]);
-    if (messages instanceof Array) {
-      this.messages = messages;
+    this.message = this.message.concat([message]);
+    if (message instanceof Array) {
+      this.message = message;
     }
 
     this.token = token;
@@ -44,7 +44,7 @@ export class NbAuthResult {
   }
 
   getMessages(): string[] {
-    return this.messages.filter(val => !!val);
+    return this.message.filter(val => !!val);
   }
 
   isSuccess(): boolean {

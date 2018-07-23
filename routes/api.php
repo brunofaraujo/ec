@@ -36,6 +36,5 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'subscription'
 ], function () {
-   Route::get('modalidades', 'InscricaoController@getModalidades');
+    Route::get('modalidades', 'InscricaoController@getModalidades');
 });
-

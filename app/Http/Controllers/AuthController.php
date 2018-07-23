@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SignupRequest;
+use App\Profile;
 use App\Role;
 use App\User;
 
@@ -93,6 +94,12 @@ class AuthController extends Controller
         $user->remember_token = str_random(10);
         $user->role()->associate(Role::find(2));
         $user->save();
-        return $this->login($user);
+
+        $profile = new Profile();
+        $profile->nome = $request->input('fullName');
+        $profile->user()->associate($user);
+        $profile->save();
+
+        return $this->login();
     }
 }

@@ -47,7 +47,7 @@ export class NbPasswordAuthStrategyOptions extends NbAuthStrategyOptions {
     method: 'post',
     failWhenNoToken: true,
     redirect: {
-      success: '/',
+      success: '/pages',
       failure: null,
     },
     defaultErrors: ['Login/Email combination is not correct, please try again.'],
@@ -60,7 +60,7 @@ export class NbPasswordAuthStrategyOptions extends NbAuthStrategyOptions {
     method: 'post',
     failWhenNoToken: true,
     redirect: {
-      success: '/',
+      success: '/pages',
       failure: null,
     },
     defaultErrors: ['Something went wrong, please try again.'],
@@ -118,7 +118,7 @@ export class NbPasswordAuthStrategyOptions extends NbAuthStrategyOptions {
     ),
   };
   errors?: NbPasswordStrategyMessage = {
-    key: 'data.errors',
+    key: 'errors',
     getter: (module: string, res: HttpErrorResponse, options: NbPasswordAuthStrategyOptions) => getDeepFromObject(
       res.error,
       options.errors.key,
@@ -126,7 +126,7 @@ export class NbPasswordAuthStrategyOptions extends NbAuthStrategyOptions {
     ),
   };
   messages?: NbPasswordStrategyMessage = {
-    key: 'data.messages',
+    key: 'data',
     getter: (module: string, res: HttpResponse<Object>, options: NbPasswordAuthStrategyOptions) => getDeepFromObject(
       res.body,
       options.messages.key,
