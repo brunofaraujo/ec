@@ -73,9 +73,19 @@ class ResetPasswordController extends Controller
     public function process(ChangePasswordRequest $request)
     {
         if ($this->getPasswordResetTableRow($request)->count() > 0) {
+
+
+        //    return $request->get('token');
+
+
             return $this->changePassword($request);
         } else {
-            return $this->tokenNotFoundResponse();
+
+
+        //    return $request->get('token');
+
+
+             return $this->tokenNotFoundResponse();
         }
     }
 
@@ -103,7 +113,7 @@ class ResetPasswordController extends Controller
     {
         return DB::table('password_resets')->where([
             'email' => $request->email,
-            'token' => $request->resetToken
+            'token' => $request->token
         ]);
     }
 }
