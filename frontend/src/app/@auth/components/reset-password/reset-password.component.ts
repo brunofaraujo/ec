@@ -4,7 +4,7 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 import {Component, Inject} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {NB_AUTH_OPTIONS} from '../../auth.options';
 import {getDeepFromObject} from '../../helpers';
 
