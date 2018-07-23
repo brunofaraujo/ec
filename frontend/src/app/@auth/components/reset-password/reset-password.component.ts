@@ -122,7 +122,12 @@ export class NbResetPasswordComponent {
     this.showMessages = this.getConfigValue('forms.resetPassword.showMessages');
     this.strategy = this.getConfigValue('forms.resetPassword.strategy');
 
-    route.queryParams.subscribe(
+    this.setTokenRequest();
+
+  }
+
+  setTokenRequest() {
+    this.route.queryParams.subscribe(
       params => {
         this.user.token = params['token']
       },
