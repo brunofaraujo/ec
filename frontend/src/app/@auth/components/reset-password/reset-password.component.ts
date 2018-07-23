@@ -113,7 +113,7 @@ export class NbResetPasswordComponent {
   messages: string[] = [];
   user: any = {};
 
-  constructor(private route: ActivatedRoute,
+  constructor(/*private route: ActivatedRoute,*/
               protected service: NbAuthService,
               @Inject(NB_AUTH_OPTIONS) protected options = {},
               protected router: Router) {
@@ -122,11 +122,11 @@ export class NbResetPasswordComponent {
     this.showMessages = this.getConfigValue('forms.resetPassword.showMessages');
     this.strategy = this.getConfigValue('forms.resetPassword.strategy');
 
-    route.queryParams.subscribe(
+/*    route.queryParams.subscribe(
       params => {
         this.user.resetToken = params['token']
       },
-    )
+    )*/
   }
 
   resetPass(): void {
@@ -140,7 +140,6 @@ export class NbResetPasswordComponent {
       } else {
         this.errors = result.getErrors();
       }
-
       const redirect = result.getRedirect();
       if (redirect) {
         setTimeout(() => {
