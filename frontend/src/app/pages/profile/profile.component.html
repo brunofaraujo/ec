@@ -1,8 +1,240 @@
-<p>
-  profile works!
-</p>
-<h1>User tab is working...</h1>
-<h3>User details:</h3>
-<h3 *ngIf="loading">Loading...</h3>
-<pre><h4 *ngIf="!loading && !error">{{user|json}}</h4></pre>
-<h3 class="text-danger" *ngIf="!loading && error">{{error.message}}</h3>
+<nb-card>
+  <nb-card-header>User profile</nb-card-header>
+  <nb-card-body *ngIf="!loading && error">
+    <h3 class="text-danger">{{error.message}}</h3>
+  </nb-card-body>
+  <nb-card-body *ngIf="!loading && !error">
+    <div class="row">
+      <div class="col-xxxl-3 col-md-6">
+        <ngx-switch-edit [title]="editButton.title"
+                         [type]="editButton.type"
+                         [on]="editButton.on"
+                         (click)="editButton.on = !editButton.on"
+                         nbPopover="Clique para ativar/desativar" nbPopoverMode="hover">
+          <i [ngClass]="editButton.iconClass"></i>
+        </ngx-switch-edit>
+      </div>
+      <nb-card>
+        <nb-card-body>
+          <div class="col-xxxl-3 col-md-6">
+            <nb-actions size="large" [fullWidth]="true">
+              <nb-action
+                icon="nb-locked"
+                badgePosition="bottom start"
+                badgeStatus="primary"
+                badgeText="Alterar senha"
+                nbPopover="Clique para alterar a senha"
+                nbPopoverMode="hover">
+              </nb-action>
+            </nb-actions>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="row">
+      <h3>Edit button status: {{editButton.on}}</h3>
+    </div>
+    <form novalidate class="ng-untouched ng-pristine ng-valid">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputNome">Nome</label>
+        <div class="col-sm-6">
+          <input class="form-control"
+                 id="inputNome"
+                 [(ngModel)]="user.profile.nome"
+                 placeholder="{{user.profile.nome}}"
+                 name="profile.nome"
+                 type="text"
+                 disabled="{{!editButton.on}}"
+          [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputEmail">Email</label>
+        <div class="col-sm-6"><input class="form-control" id="inputEmail" [(ngModel)]="user.email"
+                                     placeholder="{{user.email}}" name="email" type="email" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputCpf">CPF</label>
+        <div class="col-sm-6"><input class="form-control" id="inputCpf" [(ngModel)]="user.profile.cpf"
+                                     placeholder="{{user.profile.cpf}}" name="profile.cpf" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputCpf">Gênero</label>
+        <div class="col-sm-6"><input class="form-control" id="inputGenero" [(ngModel)]="user.profile.genero"
+                                     placeholder="{{user.profile.genero}}" name="profile.genero" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputCpf">Título</label>
+        <div class="col-sm-6"><input class="form-control" id="inputTitulo" [(ngModel)]="user.profile.titulo"
+                                     placeholder="{{user.profile.titulo}}" name="profile.titulo" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputCpf">Profissão</label>
+        <div class="col-sm-6"><input class="form-control" id="inputProfissao" [(ngModel)]="user.profile.profissao"
+                                     placeholder="{{user.profile.profissao}}" name="profile.profissao" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputCpf">Empresa/Instituição</label>
+        <div class="col-sm-6"><input class="form-control" id="inputEmpresa" [(ngModel)]="user.profile.empresa"
+                                     placeholder="{{user.profile.empresa}}" name="profile.empresa" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputNascimento">Nascimento</label>
+        <div class="col-sm-6"><input class="form-control" id="inputNascimento" [(ngModel)]="user.profile.nascimento"
+                                     placeholder="{{user.profile.nascimento}}" name="profile.nascimento" type="text"
+                                     disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputRgnum">RG - Número</label>
+        <div class="col-sm-6"><input class="form-control" id="inputRgnum" [(ngModel)]="user.profile.rg_num"
+                                     placeholder="{{user.profile.rg_num}}" name="profile.rg_num" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputRgexpeditor">RG - Expeditor</label>
+        <div class="col-sm-6"><input class="form-control" id="inputRgexpeditor" [(ngModel)]="user.profile.rg_expeditor"
+                                     placeholder="{{user.profile.rg_expeditor}}" name="profile.rg_exp" type="text"
+                                     disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputRgestado">RG - Estado</label>
+        <div class="col-sm-6"><input class="form-control" id="inputRgestado" [(ngModel)]="user.profile.rg_estado"
+                                     placeholder="{{user.profile.rg_estado}}" name="profile.rg_estado" type="text"
+                                     disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputCep">CEP</label>
+        <div class="col-sm-6"><input class="form-control" id="inputCep" [(ngModel)]="user.profile.cep"
+                                     placeholder="{{user.profile.cep}}" name="profile.cep" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputLogradouro">Logradouro</label>
+        <div class="col-sm-6"><input class="form-control" id="inputLogradouro" [(ngModel)]="user.profile.logradouro"
+                                     placeholder="{{user.profile.logradouro}}" name="profile.logradouro" type="text"
+                                     disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputNumero">Número</label>
+        <div class="col-sm-6"><input class="form-control" id="inputNumero" [(ngModel)]="user.profile.numero"
+                                     placeholder="{{user.profile.numero}}" name="profile.numero" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputComplemento">Complemento</label>
+        <div class="col-sm-6"><input class="form-control" id="inputComplemento" [(ngModel)]="user.profile.complemento"
+                                     placeholder="{{user.profile.complemento}}" name="profile.complemento" type="text"
+                                     disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputBairro">Bairro</label>
+        <div class="col-sm-6"><input class="form-control" id="inputBairro" [(ngModel)]="user.profile.bairro"
+                                     placeholder="{{user.profile.bairro}}" name="profile.bairro" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputCidade">Cidade</label>
+        <div class="col-sm-6"><input class="form-control" id="inputCidade" [(ngModel)]="user.profile.cidade"
+                                     placeholder="{{user.profile.cidade}}" name="profile.cidade" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputEstado">Estado</label>
+        <div class="col-sm-6"><input class="form-control" id="inputEstado" [(ngModel)]="user.profile.estado"
+                                     placeholder="{{user.profile.estado}}" name="profile.estado" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputPais">País</label>
+        <div class="col-sm-6"><input class="form-control" id="inputPais" [(ngModel)]="user.profile.pais"
+                                     placeholder="{{user.profile.pais}}" name="profile.pais" type="text" disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputTelefone">Telefone</label>
+        <div class="col-sm-6"><input class="form-control" id="inputTelefone" [(ngModel)]="user.profile.telefone"
+                                     placeholder="{{user.profile.telefone}}" name="profile.telefone" type="text"
+                                     disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="inputTelefoneAlt">Telefone</label>
+        <div class="col-sm-6"><input class="form-control" id="inputTelefoneAlt" [(ngModel)]="user.profile.telefone_alt"
+                                     placeholder="{{user.profile.telefone_alt}}" name="profile.telefone_alt" type="text"
+                                     disabled="{{!editButton.on}}"
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+      </div>
+
+
+      <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+          <button class="btn btn-primary" type="submit">Sign in</button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>Card footer</nb-card-footer>
+</nb-card>
+<nb-card-body>

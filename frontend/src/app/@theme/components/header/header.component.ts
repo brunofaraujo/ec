@@ -4,6 +4,7 @@ import {NbMenuItem, NbMenuService, NbSidebarService} from '@nebular/theme';
 import {UserService} from '../../../@core/data/users.service';
 import {AnalyticsService} from '../../../@core/utils/analytics.service';
 import {NbAuthJWTToken, NbAuthService} from '../../../@auth';
+import {User} from '../../../@core/data/user';
 
 @Component({
   selector: 'ngx-header',
@@ -15,14 +16,7 @@ export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
 
-  user = {
-    email: null,
-    profile: {
-      nome: null,
-    },
-  };
-
-
+  user: User;
   userMenu: NbMenuItem[] = [
     {
       title: 'Profile',
@@ -54,7 +48,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userService.getProfile().subscribe(
       (data) => {
-        return this.user = data.data
+        return this.user = data
       },
     );
   }

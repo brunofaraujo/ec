@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NbAuthService} from '../@auth/services';
 import {NbMenuItem} from '@nebular/theme';
 import {UserService} from '../@core/data/users.service';
+import {User} from '../@core/data/user';
 
 
 @Component({
@@ -11,12 +12,7 @@ import {UserService} from '../@core/data/users.service';
 })
 export class MainComponent implements OnInit {
 
-  user = {
-    email: null,
-    profile: {
-      nome: null,
-    },
-  };
+  user: User;
 
   userMenu: NbMenuItem[] = [
     {
@@ -43,7 +39,7 @@ export class MainComponent implements OnInit {
         this.isAuth = res;
         this.userService.getProfile().subscribe(
           (user) => {
-            this.user = user.data;
+            this.user = user;
           },
         )
       },

@@ -49,7 +49,7 @@ class AuthController extends Controller
     {
         $user = User::findOrFail(auth()->user()->getAuthIdentifier());
         $user->profile;
-        return response()->json(['data' => $user]);
+        return response()->json($user);
     }
 
 
