@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SignupRequest;
+use App\Profile;
 use App\Role;
 use App\User;
 
@@ -15,7 +16,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','signup']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signup']]);
     }
 
     /**
@@ -27,7 +28,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json(['errors' => 'E-mail e/ou senha não conferem.'], 401);
         }
 
@@ -41,13 +42,16 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(['data' => auth()->user()]);
+        return response()->json(auth()->user());
     }
-/*
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
+
+    public function profile()
+    {
+        $user = User::findOrFail(auth()->user()->getAuthIdentifier());
+        $user->profile;
+        return response()->json($user);
+    }
+
 
     public function logout()
     {
@@ -55,8 +59,6 @@ class AuthController extends Controller
 
         return response()->json(['data' => 'Successfully logged out!']);
     }
-
-    */
 
     /**
      * Refresh a token.
@@ -92,6 +94,12 @@ class AuthController extends Controller
         $user->remember_token = str_random(10);
         $user->role()->associate(Role::find(2));
         $user->save();
-        return $this->login($user);
+
+        $profile = new Profile();
+        $profile->nome = $request->input('fullName');
+        $profile->user()->associate($user);
+        $profile->save();
+
+        return $this->login();
     }
 }

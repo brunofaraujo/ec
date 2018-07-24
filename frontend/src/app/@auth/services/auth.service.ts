@@ -3,16 +3,20 @@
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
-import { Inject, Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 
-import { Observable, of as observableOf } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import {Observable, of as observableOf} from 'rxjs';
+import {switchMap, map} from 'rxjs/operators';
 
-import { NbAuthStrategy } from '../strategies';
-import { NB_AUTH_STRATEGIES } from '../auth.options';
-import { NbAuthResult } from './auth-result';
-import { NbTokenService } from './token/token.service';
-import { NbAuthToken } from './token/token';
+import {NbAuthStrategy} from '../strategies';
+import {NB_AUTH_STRATEGIES} from '../auth.options';
+import {NbAuthResult} from './auth-result';
+import {NbTokenService} from './token/token.service';
+import {NbAuthToken} from './token/token';
+import {HttpClient} from '@angular/common/http';
+import {OptionsService} from '../../@core/data/options.service';
+import 'rxjs/add/operator/map';
+import {log} from 'util';
 
 /**
  * Common authentication service.
@@ -21,8 +25,11 @@ import { NbAuthToken } from './token/token';
 @Injectable()
 export class NbAuthService {
 
-  constructor(protected tokenService: NbTokenService,
-              @Inject(NB_AUTH_STRATEGIES) protected strategies) {
+  constructor(
+    private http: HttpClient,
+    private options: OptionsService,
+    protected tokenService: NbTokenService,
+    @Inject(NB_AUTH_STRATEGIES) protected strategies) {
   }
 
   /**
@@ -100,26 +107,25 @@ export class NbAuthService {
   }
 
   /**
-   * Sign outs with the selected strategy
+   *
    * Removes token from the token storage
    *
    * Example:
-   * logout('email')
+   * logout()
    *
-   * @param strategyName
-   * @returns {Observable<NbAuthResult>}
+   * @returns {boolean}
    */
-  logout(strategyName: string): Observable<NbAuthResult> {
-    return this.getStrategy(strategyName).logout()
-      .pipe(
-        switchMap((result: NbAuthResult) => {
-          if (result.isSuccess()) {
-            this.tokenService.clear()
-              .pipe(map(() => result));
-          }
-          return observableOf(result);
-        }),
-      );
+  logout(): Observable<Object> {
+    return this.http.post(this.options.API_BASE_URL + '/auth/logout', null).map(
+      res => {
+        log(res);
+        localStorage.removeItem('auth_app_token');
+        return res;
+      },
+      err => {
+        return err.message;
+      },
+    );
   }
 
   /**
@@ -176,8 +182,8 @@ export class NbAuthService {
    * Example:
    * getStrategy('email')
    *
-   * @param {string} provider
    * @returns {NbAbstractAuthProvider}
+   * @param strategyName
    */
   protected getStrategy(strategyName: string): NbAuthStrategy {
     const found = this.strategies.find((strategy: NbAuthStrategy) => strategy.getName() === strategyName);
@@ -198,7 +204,6 @@ export class NbAuthService {
           }),
         );
     }
-
     return observableOf(result);
   }
 }

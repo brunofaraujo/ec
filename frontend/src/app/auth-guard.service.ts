@@ -28,8 +28,8 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
   canActivateChild() {
     return this.authService.isAuthenticated().pipe(
       tap( authenticated => {
-        if (authenticated) {
-          this.router.navigateByUrl('/');
+        if (!authenticated) {
+          this.router.navigate(['/auth/login']);
         }
       },
     ),

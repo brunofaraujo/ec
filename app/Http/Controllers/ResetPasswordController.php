@@ -72,20 +72,32 @@ class ResetPasswordController extends Controller
 
     public function process(ChangePasswordRequest $request)
     {
+        if ($this->getPasswordResetTableRow($request)->count() > 0) {
 
-        return $this->getPasswordResetTableRow($request)->count() > 0 ? $this->changePassword($request) : $this->tokenNotFoundResponse();
 
+        //    return $request->get('token');
+
+
+            return $this->changePassword($request);
+        } else {
+
+
+        //    return $request->get('token');
+
+
+             return $this->tokenNotFoundResponse();
+        }
     }
 
     private function tokenNotFoundResponse() {
 
-        return response()->json(['errors' => ['email' => 'Token or email mismatch. You must request a new token.']], Response::HTTP_UNPROCESSABLE_ENTITY);
-// remember to include real email check too!!
+        return response()->json(['errors' => ['Token/email mismatch. You must request a new token.']], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     private function changePassword($request) {
 
         $user = User::where('email', $request->email)->first();
+
         $user->update(['password' => bcrypt($request->password)]);
 
         $this->getPasswordResetTableRow($request)->delete();
@@ -101,7 +113,7 @@ class ResetPasswordController extends Controller
     {
         return DB::table('password_resets')->where([
             'email' => $request->email,
-            'token' => $request->resetToken
+            'token' => $request->token
         ]);
     }
 }

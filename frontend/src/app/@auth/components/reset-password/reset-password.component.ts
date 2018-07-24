@@ -3,13 +3,13 @@
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
-import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { NB_AUTH_OPTIONS } from '../../auth.options';
-import { getDeepFromObject } from '../../helpers';
+import {Component, Inject} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NB_AUTH_OPTIONS} from '../../auth.options';
+import {getDeepFromObject} from '../../helpers';
 
-import { NbAuthService } from '../../services';
-import { NbAuthResult } from '../../services';
+import {NbAuthService} from '../../services';
+import {NbAuthResult} from '../../services';
 
 @Component({
   selector: 'ngx-reset-password-page',
@@ -28,7 +28,20 @@ import { NbAuthResult } from '../../services';
           <div><strong>Hooray!</strong></div>
           <div *ngFor="let message of messages">{{ message }}</div>
         </div>
-
+        <div class="form-group">
+          <label for="input-email" class="sr-only">Email address</label>
+          <input name="email" [(ngModel)]="user.email" id="input-email" #email="ngModel"
+                 class="form-control" placeholder="Email address" pattern=".+@.+..+"
+                 [class.form-control-danger]="email.invalid && email.touched"
+                 [required]="getConfigValue('forms.validation.email.required')">
+          <small class="form-text error" *ngIf="email.invalid && email.touched && email?.errors?.required">
+            Email is required!
+          </small>
+          <small class="form-text error"
+                 *ngIf="email.invalid && email.touched && email?.errors?.pattern">
+            Email should be the real one!
+          </small>
+        </div>
         <div class="form-group">
           <label for="input-password" class="sr-only">New Password</label>
           <input name="password" [(ngModel)]="user.password" type="password" id="input-password"
@@ -36,14 +49,17 @@ import { NbAuthResult } from '../../services';
                  [class.form-control-danger]="password.invalid && password.touched"
                  [required]="getConfigValue('forms.validation.password.required')"
                  [minlength]="getConfigValue('forms.validation.password.minLength')"
-                 [maxlength]="getConfigValue('forms.validation.password.maxLength')"
-                 autofocus>
-          <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">
+                 [maxlength]="getConfigValue('forms.validation.password.maxLength')">
+          <small class="form-text error" *ngIf="password.invalid && password.touched && password?.errors?.required">
             Password is required!
           </small>
           <small
             class="form-text error"
-            *ngIf="password.invalid && password.touched && (password.errors?.minlength || password.errors?.maxlength)">
+            *ngIf="
+            password.invalid &&
+             password.touched &&
+              (password?.errors?.minlength ||
+               password?.errors?.maxlength)">
             Password should contains
             from {{getConfigValue('forms.validation.password.minLength')}}
             to {{getConfigValue('forms.validation.password.maxLength')}}
@@ -54,12 +70,12 @@ import { NbAuthResult } from '../../services';
         <div class="form-group">
           <label for="input-re-password" class="sr-only">Confirm Password</label>
           <input
-            name="rePass" [(ngModel)]="user.confirmPassword" type="password" id="input-re-password"
+            name="rePass" [(ngModel)]="user.password_confirmation" type="password" id="input-re-password"
             class="form-control form-control-lg last" placeholder="Confirm Password" #rePass="ngModel"
             [class.form-control-danger]="(rePass.invalid || password.value != rePass.value) && rePass.touched"
             [required]="getConfigValue('forms.validation.password.required')">
           <small class="form-text error"
-                 *ngIf="rePass.invalid && rePass.touched && rePass.errors?.required">
+                 *ngIf="rePass.invalid && rePass.touched && rePass?.errors?.required">
             Password confirmation is required!
           </small>
           <small
@@ -97,13 +113,25 @@ export class NbResetPasswordComponent {
   messages: string[] = [];
   user: any = {};
 
-  constructor(protected service: NbAuthService,
+  constructor(private route: ActivatedRoute,
+              protected service: NbAuthService,
               @Inject(NB_AUTH_OPTIONS) protected options = {},
               protected router: Router) {
 
     this.redirectDelay = this.getConfigValue('forms.resetPassword.redirectDelay');
     this.showMessages = this.getConfigValue('forms.resetPassword.showMessages');
     this.strategy = this.getConfigValue('forms.resetPassword.strategy');
+
+    this.setTokenRequest();
+
+  }
+
+  setTokenRequest() {
+    this.route.queryParams.subscribe(
+      params => {
+        this.user.token = params['token']
+      },
+    )
   }
 
   resetPass(): void {
@@ -117,7 +145,6 @@ export class NbResetPasswordComponent {
       } else {
         this.errors = result.getErrors();
       }
-
       const redirect = result.getRedirect();
       if (redirect) {
         setTimeout(() => {

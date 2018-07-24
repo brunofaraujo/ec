@@ -2,7 +2,7 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import {
   NbAuthComponent,
-  NbLoginComponent,
+  NbLoginComponent, NbLogoutComponent,
   NbRegisterComponent,
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
@@ -14,6 +14,7 @@ import {NotFoundComponent} from './pages/miscellaneous/not-found/not-found.compo
 const routes: Routes = [
   { path: 'pages',
     canActivate: [AuthGuardService],
+    canActivateChild: [AuthGuardService],
     loadChildren: 'app/pages/pages.module#PagesModule',
   },
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'login',
         component: NbLoginComponent,
+      },
+      {
+        path: 'logout',
+        component: NbLogoutComponent,
       },
       {
         path: 'register',

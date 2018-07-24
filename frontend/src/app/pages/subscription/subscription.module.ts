@@ -1,20 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { SubscriptionRoutingModule } from './subscription-routing.module';
-import { SubscriptionComponent } from './subscription.component';
+import {NgModule} from '@angular/core';
+import {SubscriptionRoutingModule, routedComponents} from './subscription-routing.module';
 import {ThemeModule} from '../../@theme/theme.module';
-
-const components = [
-  SubscriptionComponent,
-];
 
 @NgModule({
   imports: [
-    CommonModule,
     ThemeModule,
     SubscriptionRoutingModule,
   ],
-  declarations: [...components],
+  declarations: [
+    ...routedComponents,
+  ],
 })
-export class SubscriptionModule { }
+export class SubscriptionModule {
+}

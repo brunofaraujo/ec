@@ -1,5 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../@core/data/users.service';
+import {User} from '../../@core/data/user';
+
+interface CardSettings {
+  title: string;
+  iconClass: string;
+  type: string;
+  on: boolean;
+}
 
 @Component({
   selector: 'ngx-profile',
@@ -8,22 +16,35 @@ import {UserService} from '../../@core/data/users.service';
 })
 export class ProfileComponent implements OnInit {
 
-  public loading: boolean = false;
-  public user;
+  public loading: boolean;
+  public user: User;
   public error;
+  public isEditing: boolean;
+  public editButton: CardSettings;
+  public bgColorEnabled = '#a1a1e5';
 
   constructor(private userService: UserService) {
+
+    this.loading = false;
+    this.isEditing = false;
+    this.editButton = {
+      title: 'Habilitar Edição',
+      iconClass: 'nb-compose',
+      type: 'success',
+      on: false,
+    }
   }
 
   ngOnInit() {
     this.loading = true;
-    this.userService.getUser().subscribe((data) => {
-      this.loading = false;
-      this.user = data;
-    },
+    this.userService.getProfile().subscribe(
+      (data: User) => {
+        this.loading = false;
+        this.user = data;
+      },
       (error) => {
-      this.loading = false;
-      this.error = error;
+        this.loading = false;
+        this.error = error;
       })
   }
 }

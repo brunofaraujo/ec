@@ -1,10 +1,10 @@
-import { InjectionToken } from '@angular/core';
-import { NbAuthStrategy, NbAuthStrategyOptions } from './strategies';
-import { NbAuthTokenClass } from './services';
+import {InjectionToken} from '@angular/core';
+import {NbAuthStrategy, NbAuthStrategyOptions} from './strategies';
+import {NbAuthTokenClass} from './services';
 
 export type NbAuthStrategyClass = new (...params: any[]) => NbAuthStrategy;
 
-export type NbAuthStrategies  = [NbAuthStrategyClass, NbAuthStrategyOptions][];
+export type NbAuthStrategies = [NbAuthStrategyClass, NbAuthStrategyOptions][];
 
 export interface NbAuthOptions {
   forms?: any;
@@ -25,7 +25,7 @@ export const defaultAuthOptions: any = {
   strategies: [],
   forms: {
     login: {
-      redirectDelay: 500, // delay before redirect after a successful login, while success message is shown to the user
+      redirectDelay: 2000, // delay before redirect after a successful login, while success message is shown to the user
       strategy: 'email',  // provider id key. If you have multiple strategies, or what to use your own
       rememberMe: true,   // whether to show or not the `rememberMe` checkbox
       showMessages: {     // show/not show success/error messages
@@ -35,7 +35,7 @@ export const defaultAuthOptions: any = {
       socialLinks: socialLinks, // social links at the bottom of a page
     },
     register: {
-      redirectDelay: 500,
+      redirectDelay: 2000,
       strategy: 'email',
       showMessages: {
         success: true,
@@ -45,7 +45,7 @@ export const defaultAuthOptions: any = {
       socialLinks: socialLinks,
     },
     requestPassword: {
-      redirectDelay: 500,
+      redirectDelay: 2000,
       strategy: 'email',
       showMessages: {
         success: true,
@@ -54,30 +54,33 @@ export const defaultAuthOptions: any = {
       socialLinks: socialLinks,
     },
     resetPassword: {
-      redirectDelay: 500,
+      redirectDelay: 2000,
       strategy: 'email',
       showMessages: {
         success: true,
         error: true,
       },
       socialLinks: socialLinks,
+      email: {
+        required: true,
+      },
     },
     logout: {
-      redirectDelay: 500,
+      redirectDelay: 2000,
       strategy: 'email',
     },
     validation: {
       password: {
         required: true,
         minLength: 4,
-        maxLength: 50,
+        maxLength: 20,
       },
       email: {
         required: true,
       },
       fullName: {
-        required: false,
-        minLength: 4,
+        required: true,
+        minLength: 5,
         maxLength: 50,
       },
     },

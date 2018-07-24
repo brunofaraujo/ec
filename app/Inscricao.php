@@ -25,4 +25,9 @@ class Inscricao extends Model
     {
         return $this->belongsTo('App\Oficina');
     }
+
+    public function modalidade()
+    {
+        return $this->belongsTo('App\Modalidade');
+    }
 }

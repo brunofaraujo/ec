@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {NbAuthService} from '../@auth/services';
+import {NbMenuItem} from '@nebular/theme';
+import {UserService} from '../@core/data/users.service';
+import {User} from '../@core/data/user';
 
 
 @Component({
@@ -9,15 +12,39 @@ import {NbAuthService} from '../@auth/services';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private authService: NbAuthService) {
-  }
+  user: User;
 
-  isAuth: any;
+  userMenu: NbMenuItem[] = [
+    {
+      title: 'Profile',
+      link: '/pages/user',
+    },
+    {
+      title: 'Log out',
+      link: '/auth/logout',
+    },
+  ];
+
+  isAuth: boolean = false;
+
+  constructor(
+    private authService: NbAuthService,
+    private userService: UserService,
+  ) {
+  }
 
   ngOnInit() {
     this.authService.isAuthenticated().subscribe(
-      res => {
+      (res) => {
         this.isAuth = res;
+        this.userService.getProfile().subscribe(
+          (user) => {
+            this.user = user;
+          },
+        )
+      },
+      (error) => {
+        this.isAuth = error;
       },
     )
   }
@@ -31,8 +58,7 @@ export class MainComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout('email');
-    localStorage.removeItem('auth_app_token');
+    this.authService.logout();
     this.refreshAuth();
   }
 }

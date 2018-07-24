@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Modalidade;
 
 class InscricaoController extends Controller
 {
-    //
+    public function getModalidades()
+    {
+        return response()->json(Modalidade::all());
+    }
+
 }

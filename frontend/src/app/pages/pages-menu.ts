@@ -1,4 +1,4 @@
-import { NbMenuItem } from '@nebular/theme';
+import {NbMenuItem} from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -15,6 +15,36 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Profile',
     icon: 'nb-person',
     link: '/pages/user',
+  },
+  {
+    title: 'Subscription',
+    icon: 'nb-compose',
+    link: '/pages/subscription',
+    children: [
+      {
+        title: 'Create new',
+        link: '/pages/subscription/new',
+      },
+      {
+        title: 'View current',
+        link: '/pages/subscription/current',
+      },
+    ],
+  },
+  {
+    title: 'Workshop',
+    icon: 'nb-title',
+    link: '/pages/workshop',
+  },
+  {
+    title: 'Presentation',
+    icon: 'nb-play-outline',
+    link: '/pages/presentation',
+  },
+  {
+    title: 'Certificate',
+    icon: 'nb-layout-default',
+    link: '/pages/certificate',
   },
   {
     title: 'UI Features',
@@ -55,6 +85,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  /*,
   {
     title: 'Forms',
     icon: 'nb-compose',
@@ -175,7 +206,5 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Reset Password',
         link: '/auth/reset-password',
-      },
-    ],
-  },
+      },*/
 ];

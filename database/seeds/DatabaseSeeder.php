@@ -1,5 +1,6 @@
 <?php
 
+use App\Modalidade;
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Profile;
@@ -46,6 +47,8 @@ class DatabaseSeeder extends Seeder
         $admin->role()->associate(Role::findOrFail(1));
         $admin->save();
         $admin->profile()->save(factory(Profile::class)->make());
+
+        factory(Modalidade::class, 3)->create();
 
         factory(User::class, 50)->create()->each(function ($u) {
             $u->profile()->save(factory(Profile::class)->make());

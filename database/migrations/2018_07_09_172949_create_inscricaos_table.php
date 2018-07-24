@@ -16,6 +16,7 @@ class CreateInscricaosTable extends Migration
         Schema::create('inscricaos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->nullable();
+            $table->integer('modalidade_id')->nullable();
             $table->integer('oficina_id')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

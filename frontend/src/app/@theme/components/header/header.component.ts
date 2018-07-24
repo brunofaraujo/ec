@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {NbMenuService, NbSidebarService} from '@nebular/theme';
+import {NbMenuItem, NbMenuService, NbSidebarService} from '@nebular/theme';
 import {UserService} from '../../../@core/data/users.service';
 import {AnalyticsService} from '../../../@core/utils/analytics.service';
 import {NbAuthJWTToken, NbAuthService} from '../../../@auth';
+import {User} from '../../../@core/data/user';
 
 @Component({
   selector: 'ngx-header',
@@ -15,16 +16,18 @@ export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
 
-  user = {};
-
-  userMenu = [
+  user: User;
+  userMenu: NbMenuItem[] = [
     {
       title: 'Profile',
+      link: '/pages/user',
     },
     {
       title: 'Log out',
+      link: '/auth/logout',
     },
   ];
+
 
   constructor(
     private sidebarService: NbSidebarService,
@@ -43,7 +46,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.userService.user;
+    this.userService.getProfile().subscribe(
+      (data) => {
+        return this.user = data
+      },
+    );
   }
 
   toggleSidebar(): boolean {
