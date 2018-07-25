@@ -60,17 +60,33 @@
         <div class="col-sm-10 col-md-6 col-lg-3">
           <input class="form-control" #email="ngModel" id="inputEmail" [(ngModel)]="user.email"
                  placeholder="{{user.email}}" name="email" type="email" disabled="{{!editButton.on}}"
-                 [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"></div>
+                 [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                 required>
+          <div *ngIf="email.invalid && (email.dirty || email.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="email.errors.required">
+              Email is required.
+            </div>
+          </div></div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label"
                for="inputCpf">CPF</label>
-        <div class="col-sm-10 col-md-6 col-lg-2"><input class="form-control" #cpf="ngModel" id="inputCpf"
+        <div class="col-sm-10 col-md-6 col-lg-3 col-xl-3"><input class="form-control" #cpf="ngModel" id="inputCpf"
                                                         [(ngModel)]="user.profile.cpf"
                                                         placeholder="{{user.profile.cpf}}" name="profile.cpf"
                                                         type="text" disabled="{{!editButton.on}}"
-                                                        [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                                        [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                 required>
+          <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="cpf.errors.required">
+              CPF is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -82,7 +98,15 @@
                                                                 placeholder="{{user.profile.genero}}"
                                                                 name="profile.genero" type="text"
                                                                 disabled="{{!editButton.on}}"
-                                                                [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                                                [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="genero.invalid && (genero.dirty || genero.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="genero.errors.required">
+              Gender is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -94,7 +118,15 @@
                                                                 placeholder="{{user.profile.titulo}}"
                                                                 name="profile.titulo" type="text"
                                                                 disabled="{{!editButton.on}}"
-                                                                [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                                                [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="titulo.errors.required">
+              Title is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -105,7 +137,15 @@
                                      [(ngModel)]="user.profile.profissao"
                                      placeholder="{{user.profile.profissao}}" name="profile.profissao" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="profissao.invalid && (profissao.dirty || profissao.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="profissao.errors.required">
+              Job is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -116,7 +156,15 @@
                                      [(ngModel)]="user.profile.empresa"
                                      placeholder="{{user.profile.empresa}}" name="profile.empresa" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="empresa.invalid && (empresa.dirty || empresa.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="empresa.errors.required">
+              Workplace/Instituition is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -127,7 +175,15 @@
                                      [(ngModel)]="user.profile.nascimento"
                                      placeholder="{{user.profile.nascimento}}" name="profile.nascimento" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="nascimento.invalid && (nascimento.dirty || nascimento.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="nascimento.errors.required">
+              Birthdate is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -138,7 +194,15 @@
                                      [(ngModel)]="user.profile.rg_num"
                                      placeholder="{{user.profile.rg_num}}" name="profile.rg_num" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="rg_num.invalid && (rg_num.dirty || rg_num.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="rg_num.errors.required">
+              Id number is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -149,7 +213,15 @@
                                      [(ngModel)]="user.profile.rg_expeditor"
                                      placeholder="{{user.profile.rg_expeditor}}" name="profile.rg_exp" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="rg_expeditor.invalid && (rg_expeditor.dirty || eg_expeditor.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="rg_expeditor.errors.required">
+              Id issuer is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -161,7 +233,15 @@
                                      [(ngModel)]="user.profile.rg_estado"
                                      placeholder="{{user.profile.rg_estado}}" name="profile.rg_estado" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="rg_estado.invalid && (rg_estado.dirty || rg_estado.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="rg_estado.errors.required">
+              Id State is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -169,10 +249,18 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label"
                for="inputCep">CEP</label>
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"><input class="form-control" #cep="ngModel" id="inputCep" [(ngModel)]="user.profile.cep"
+        <div class="col-xs-4 col-sm-5 col-md-3 col-lg-2"><input class="form-control" #cep="ngModel" id="inputCep" [(ngModel)]="user.profile.cep"
                                      placeholder="{{user.profile.cep}}" name="profile.cep" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="cep.invalid && (cep.dirty || cep.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="cep.errors.required">
+              Zip Code is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -184,7 +272,15 @@
                                      [(ngModel)]="user.profile.logradouro"
                                      placeholder="{{user.profile.logradouro}}" name="profile.logradouro" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                        required>
+          <div *ngIf="logradouro.invalid && (logradouro.dirty || logradouro.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="logradouro.errors.required">
+              Streetname is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -195,7 +291,15 @@
                                      [(ngModel)]="user.profile.numero"
                                      placeholder="{{user.profile.numero}}" name="profile.numero" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="numero.invalid && (numero.dirty || numero.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="numero.errors.required">
+              Number is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -203,7 +307,7 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label"
                for="inputComplemento">Complemento</label>
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"><input class="form-control" #complemento="ngModel" id="inputComplemento"
+        <div class="col-xs-4 col-sm-5 col-md-3 col-lg-2"><input class="form-control" #complemento="ngModel" id="inputComplemento"
                                      [(ngModel)]="user.profile.complemento"
                                      placeholder="{{user.profile.complemento}}" name="profile.complemento" type="text"
                                      disabled="{{!editButton.on}}"
@@ -215,26 +319,40 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label"
                for="inputBairro">Bairro</label>
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"><input class="form-control" #bairro="ngModel" id="inputBairro"
+        <div class="col-xs-4 col-sm-5 col-md-3 col-lg-2"><input class="form-control" #bairro="ngModel" id="inputBairro"
                                      [(ngModel)]="user.profile.bairro"
                                      placeholder="{{user.profile.bairro}}" name="profile.bairro" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="bairro.invalid && (bairro.dirty || bairro.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="bairro.errors.required">
+              Neighborhood name is required.
+            </div>
+          </div>
         </div>
       </div>
-
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label"
                for="inputCidade">Cidade</label>
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"><input class="form-control" #cidade="ngModel" id="inputCidade"
+        <div class="col-xs-4 col-sm-5 col-md-5 col-lg-3"><input class="form-control" #cidade="ngModel" id="inputCidade"
                                      [(ngModel)]="user.profile.cidade"
                                      placeholder="{{user.profile.cidade}}" name="profile.cidade" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                                                                required>
+          <div *ngIf="cidade.invalid && (cidade.dirty || cidade.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="cidade.errors.required">
+              City is required.
+            </div>
+          </div>
         </div>
       </div>
-
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label"
@@ -243,7 +361,14 @@
                                      [(ngModel)]="user.profile.estado"
                                      placeholder="{{user.profile.estado}}" name="profile.estado" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}" required>
+          <div *ngIf="estado.invalid && (estado.dirty || estado.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="estado.errors.required">
+              State is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -251,10 +376,17 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label"
                for="inputPais">País</label>
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"><input class="form-control" #pais="ngModel" id="inputPais" [(ngModel)]="user.profile.pais"
+        <div class="col-xs-4 col-sm-5 col-md-3 col-lg-3"><input class="form-control" #pais="ngModel" id="inputPais" [(ngModel)]="user.profile.pais"
                                      placeholder="{{user.profile.pais}}" name="profile.pais" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}" required>
+          <div *ngIf="pais.invalid && (pais.dirty || pais.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="pais.errors.required">
+              País is required.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -262,23 +394,36 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label"
                for="inputTelefone">Telefone</label>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2"><input class="form-control" #telefone="ngModel" id="inputTelefone"
+        <div class="col-xs-4 col-sm-5 col-md-4 col-lg-3"><input class="form-control" #telefone="ngModel" id="inputTelefone"
                                      [(ngModel)]="user.profile.telefone"
                                      placeholder="{{user.profile.telefone}}" name="profile.telefone" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}" required>
+          <div *ngIf="telefone.invalid && (telefone.dirty || telefone.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="telefone.errors.required">
+              Phone number is required.
+            </div>
+          </div>
         </div>
       </div>
 
-
       <div class="form-group row">
         <label class="col-sm-2 col-form-label"
-               for="inputTelefoneAlt">Telefone</label>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2"><input class="form-control" #telefone_alt="ngModel" id="inputTelefoneAlt"
+               for="inputTelefoneAlt">Telefone alternativo</label>
+        <div class="col-xs-4 col-sm-5 col-md-4 col-lg-3"><input class="form-control" #telefone_alt="ngModel" id="inputTelefoneAlt"
                                      [(ngModel)]="user.profile.telefone_alt"
                                      placeholder="{{user.profile.telefone_alt}}" name="profile.telefone_alt" type="text"
                                      disabled="{{!editButton.on}}"
-                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+                                     [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}" required>
+          <div *ngIf="telefone_alt.invalid && (telefone_alt.dirty || telefone_alt.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="telefone_alt.errors.required">
+              Alternative phone number is required.
+            </div>
+          </div>
         </div>
       </div>
 
