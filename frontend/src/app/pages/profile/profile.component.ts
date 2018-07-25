@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../@core/data/users.service';
 import {User} from '../../@core/data/user';
-import {log} from 'util';
 
 interface CardSettings {
   title: string;
