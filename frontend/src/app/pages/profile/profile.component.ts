@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
   public error;
   public isEditing: boolean;
   public editButton: CardSettings;
-  public bgColorEnabled = '#a1a1e5';
 
   constructor(private userService: UserService) {
 
