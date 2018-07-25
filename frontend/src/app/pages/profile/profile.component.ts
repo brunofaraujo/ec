@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../@core/data/users.service';
 import {User} from '../../@core/data/user';
+import {log} from 'util';
 
 interface CardSettings {
   title: string;
@@ -21,7 +22,6 @@ export class ProfileComponent implements OnInit {
   public error;
   public isEditing: boolean;
   public editButton: CardSettings;
-  public bgColorEnabled = '#a1a1e5';
 
   constructor(private userService: UserService) {
 
