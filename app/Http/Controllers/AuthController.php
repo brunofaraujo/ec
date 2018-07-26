@@ -29,35 +29,17 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['errors' => 'E-mail e/ou senha não conferem.'], 401);
+            return response()->json(['errors' => 'Credenciais inválidas. Tente novamente ou solicite uma nova senha.'], 401);
         }
 
         return $this->respondWithToken($token);
     }
 
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me()
-    {
-        return response()->json(auth()->user());
-    }
-
-    public function profile()
-    {
-        $user = User::findOrFail(auth()->user()->getAuthIdentifier());
-        $user->profile;
-        return response()->json($user);
-    }
-
-
     public function logout()
     {
         auth()->logout();
 
-        return response()->json(['data' => 'Successfully logged out!']);
+        return response()->json(['data' => 'Desconectado com sucesso.']);
     }
 
     /**

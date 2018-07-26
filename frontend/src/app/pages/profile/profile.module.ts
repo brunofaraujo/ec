@@ -5,6 +5,7 @@ import { ProfileComponent } from './profile.component';
 import {ThemeModule} from '../../@theme/theme.module';
 import {SwitchEditComponent} from './switch-edit/switch-edit.component';
 import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
+import {NbAlertModule} from '@nebular/theme';
 
 const components = [
   ProfileComponent,
@@ -16,6 +17,7 @@ const components = [
     ThemeModule,
     ProfileRoutingModule,
     NgbTooltipModule,
+    NbAlertModule,
   ],
   declarations: [...components],
 })

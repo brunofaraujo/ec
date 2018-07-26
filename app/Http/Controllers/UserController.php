@@ -2,28 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProfileRequest;
 use App\User;
-use Auth;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
 
-    public function index()
+    public function __construct()
     {
-        $users = User::all();
-
-        return response()->json(['data' => $users]);
+        $this->middleware('auth:api');
     }
 
-    public function update()
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function me()
     {
-        if ( !Auth::user() ){
-            return response()->json(['error' => 'Not Authorized'], 401);
+        return response()->json(auth()->user());
+    }
+
+    private function getUser($id)
+    {
+        return User::find($id);
+    }
+
+    public function getProfile()
+    {
+        $user = User::findOrFail(auth()->user()->getAuthIdentifier());
+        $user->profile;
+        return response()->json($user);
+    }
+
+    // TODO: Correct implementation of UpdateProfileRequest validation rules.
+
+    public function updateProfile(Request $request) {
+
+        if ($this->validateUser($request) && $user = $this->getUser($request->id)) {
+
+            if ($user->email !== $request->email) {
+
+                $user->fill($request->all())->save();
+            }
+
+            $user->profile->fill($request->profile)->save();
+
+            return response()->json(['data' => 'Dados atualizados com sucesso!']);
         }
+        return response()->json(['errors' => 'Usuário inválido.'], 401);
     }
 
-/*The error interceptor's status code defaults to 422, unless overriden.
-
-response()->error($error_message, $status_code = 422)*/
-
+    private function validateUser(Request $request) {
+        if (auth()->user()->getAuthIdentifier() === $request->id) {
+            return true;
+        }
+        return false;
+    }
 }

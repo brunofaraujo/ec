@@ -25,9 +25,7 @@ Route::group([
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@signup');
     Route::post('logout', 'AuthController@logout');
-    Route::post('profile', 'AuthController@profile');
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
     Route::post('request-pass', 'ResetPasswordController@sendEmail');
     Route::post('reset-pass', 'ResetPasswordController@process');
 });
@@ -37,4 +35,13 @@ Route::group([
     'prefix' => 'subscription'
 ], function () {
     Route::get('modalidades', 'InscricaoController@getModalidades');
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'user'
+], function () {
+    Route::post('profile', 'UserController@getProfile');
+    Route::post('update-profile', 'UserController@updateProfile');
+    Route::post('me', 'UserController@me');
 });
