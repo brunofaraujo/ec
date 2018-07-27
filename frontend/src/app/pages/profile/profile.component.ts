@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../@core/data/users.service';
 import {User} from '../../@core/data/user';
+import {PasswordModalComponent} from './password-modal/password-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 interface CardSettings {
   title: string;
@@ -20,17 +22,18 @@ export class ProfileComponent implements OnInit {
   public user: User;
   public error;
   public isEditing: boolean;
-  public submiting: boolean;
+  public submitting: boolean;
   public success: boolean;
   public successMsg;
   public editButton: CardSettings;
 
   constructor(
     private userService: UserService,
+    private modalService: NgbModal,
     ) {
 
     this.success = false;
-    this.submiting = false;
+    this.submitting = false;
     this.loading = false;
     this.isEditing = false;
     this.editButton = {
@@ -58,7 +61,7 @@ export class ProfileComponent implements OnInit {
       })
   }
 
-  scrollTop() {
+  static scrollTop() {
     const x = document.querySelector('#top');
     if (x) {
       x.scrollIntoView();
@@ -67,23 +70,38 @@ export class ProfileComponent implements OnInit {
 
   onSubmit() {
     this.successMsg = undefined;
-    this.submiting = true;
+    this.submitting = true;
     this.userService.updateProfile(this.user).subscribe(
       data => {
-        this.submiting = false;
+        this.submitting = false;
         this.editButton.on = false;
         this.getProfile();
         this.success = true;
         this.successMsg = data;
-        this.scrollTop();
+        ProfileComponent.scrollTop();
       },
       error => {
-        this.submiting = false;
+        this.submitting = false;
         this.editButton.on = false;
         this.error = error.error.errors;
-        this.scrollTop();
+        ProfileComponent.scrollTop();
       },
     )
   }
   // TODO: Make the whole change password business.
+
+  showStaticModal() {
+    const activeModal = this.modalService.open(PasswordModalComponent, {
+      size: 'sm',
+      backdrop: 'static',
+      container: 'nb-layout',
+    });
+    activeModal.componentInstance.modalHeader = 'Change password';
+    activeModal.componentInstance.pwdForm = {
+      id: this.user.id,
+      password: null,
+      newPassword: null,
+      password_confirmation: null,
+    };
+  }
 }

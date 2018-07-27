@@ -38,7 +38,8 @@ class UserController extends Controller
 
     // TODO: Correct implementation of UpdateProfileRequest validation rules.
 
-    public function updateProfile(Request $request) {
+    public function updateProfile(Request $request)
+    {
 
         if ($this->validateUser($request) && $user = $this->getUser($request->id)) {
 
@@ -54,7 +55,8 @@ class UserController extends Controller
         return response()->json(['errors' => 'Usuário inválido.'], 401);
     }
 
-    private function validateUser(Request $request) {
+    private function validateUser(Request $request)
+    {
         if (auth()->user()->getAuthIdentifier() === $request->id) {
             return true;
         }

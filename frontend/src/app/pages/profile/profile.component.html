@@ -15,7 +15,7 @@
         </ngx-switch-edit>
       </div>
       <div class="col-xxxl-4 col-md-2">
-        <nb-card>
+        <nb-card (click)="showStaticModal()">
           <nb-actions size="large" [fullWidth]="true">
             <nb-action
               icon="nb-locked"
@@ -465,7 +465,7 @@
 
       <div class="form-group row">
         <div class="offset-sm-3 col-sm-9">
-          <button class="btn btn-hero-info" [disabled]="!editButton.on || profileForm.invalid || submiting"
+          <button class="btn btn-hero-info" [disabled]="!editButton.on || profileForm.invalid || submitting"
                   type="submit">
             <i class="fa fa-save"></i> Salvar dados
           </button>

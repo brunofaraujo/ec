@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Mail\ResetPasswordMail;
 use App\User;
 use Carbon\Carbon;
@@ -70,7 +70,7 @@ class ResetPasswordController extends Controller
         return !!User::where('email', $email)->first();
     }
 
-    public function process(ChangePasswordRequest $request)
+    public function process(ResetPasswordRequest $request)
     {
         if ($this->getPasswordResetTableRow($request)->count() > 0) {
 

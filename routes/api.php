@@ -28,6 +28,7 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('request-pass', 'ResetPasswordController@sendEmail');
     Route::post('reset-pass', 'ResetPasswordController@process');
+    Route::post('change-password', 'AuthController@changePassword');
 });
 
 Route::group([

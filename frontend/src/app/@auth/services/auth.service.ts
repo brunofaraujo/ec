@@ -206,4 +206,16 @@ export class NbAuthService {
     }
     return observableOf(result);
   }
+
+  changePass(data): Observable<Object>  {
+    return this.http.post(this.options.API_BASE_URL + '/auth/change-password', data).map(
+      res => {
+        return res;
+      },
+      err => {
+        return err.message;
+      },
+    );
+
+  }
 }

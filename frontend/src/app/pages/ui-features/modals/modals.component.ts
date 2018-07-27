@@ -34,5 +34,4 @@ export class ModalsComponent {
     activeModal.componentInstance.modalContent = `This is static modal, backdrop click
                                                     will not close it. Click × or confirmation button to close modal.`;
   }
-
 }

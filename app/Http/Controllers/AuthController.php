@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\SignupRequest;
 use App\Profile;
 use App\Role;
 use App\User;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -83,5 +85,30 @@ class AuthController extends Controller
         $profile->save();
 
         return $this->login();
+    }
+
+    public function changePassword(ChangePasswordRequest $request) {
+        if ($this->validateUser($request) && $user = $this->getUser($request->id)) {
+
+            if(auth()->validate(['email' => $user->email, 'password' => $request->password])) {
+                $user->password = bcrypt($request->newPassword);
+                $user->save();
+                return response()->json(['data' => 'Password successfully changed.']);
+            }
+        }
+        return response()->json(['errors' => ['password' => ['An error occurred. Password not changed.']]], 422);
+    }
+
+    private function validateUser(Request $request)
+    {
+        if (auth()->user()->getAuthIdentifier() === $request->id) {
+            return true;
+        }
+        return false;
+    }
+
+    private function getUser($id)
+    {
+        return User::find($id);
     }
 }
