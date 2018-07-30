@@ -223,7 +223,8 @@
           <div class="input-group">
             <input class="form-control"
                    type="text"
-                   name="nascimento" value="{{user.profile.nascimento.day}}/{{user.profile.nascimento.month}}/{{user.profile.nascimento.year}}"
+                   name="nascimento"
+                   value="{{user.profile.nascimento.day}}/{{user.profile.nascimento.month}}/{{user.profile.nascimento.year}}"
                    id="displayNascimento"
                    disabled="{{editButton.on}}"
                    [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
@@ -599,6 +600,8 @@
       </div>
     </form>
   </nb-card-body>
-  <nb-card-footer>Mantenha sempre seus dados atualizados para evitar problemas como certificados e comprovantes com nomes errados.</nb-card-footer>
+  <nb-card-footer>Mantenha sempre seus dados atualizados para evitar problemas como certificados e comprovantes com
+    nomes errados.
+  </nb-card-footer>
 </nb-card>
 <nb-card-body>

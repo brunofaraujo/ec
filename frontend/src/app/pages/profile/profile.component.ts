@@ -44,13 +44,13 @@ export class ProfileComponent implements OnInit {
       type: 'success',
       on: false,
     };
-    datepickerOptions.minDate = {year: 1910, month: 1, day: 1};
-    datepickerOptions.maxDate = {year: 2018, month: 1, day: 1};
   }
 
   ngOnInit() {
     this.loading = true;
     this.getProfile();
+    this.datepickerOptions.minDate = {year: 1910, month: 1, day: 1};
+    this.datepickerOptions.maxDate = {year: 2018, month: 1, day: 1};
   }
 
   getProfile() {
