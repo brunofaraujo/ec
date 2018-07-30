@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../@core/data/users.service';
 import {User} from '../../@core/data/user';
 import {PasswordModalComponent} from './password-modal/password-modal.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerConfig, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 interface CardSettings {
   title: string;
@@ -26,11 +26,13 @@ export class ProfileComponent implements OnInit {
   public success: boolean;
   public successMsg;
   public editButton: CardSettings;
+  public birthday: NgbDateStruct;
 
   constructor(
     private userService: UserService,
     private modalService: NgbModal,
-    ) {
+    private datepickerOptions: NgbDatepickerConfig,
+  ) {
 
     this.success = false;
     this.submitting = false;
@@ -41,7 +43,9 @@ export class ProfileComponent implements OnInit {
       iconClass: 'nb-compose',
       type: 'success',
       on: false,
-    }
+    };
+    datepickerOptions.minDate = {year: 1910, month: 1, day: 1};
+    datepickerOptions.maxDate = {year: 2018, month: 1, day: 1};
   }
 
   ngOnInit() {
@@ -53,6 +57,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getProfile().subscribe(
       (data: User) => {
         this.loading = false;
+        data.profile.nascimento = this.parseDate(data.profile.nascimento);
         this.user = data;
       },
       (error) => {
@@ -88,7 +93,17 @@ export class ProfileComponent implements OnInit {
       },
     )
   }
-  // TODO: Make the whole change password business.
+
+  parseDate(date): NgbDateStruct {
+    if (date.length > 0) {
+      date = date.split('-');
+      return {
+        year: Number(date[0]),
+        month: Number(date[1]),
+        day: Number(date[2]),
+      }
+    }
+  }
 
   showStaticModal() {
     const activeModal = this.modalService.open(PasswordModalComponent, {

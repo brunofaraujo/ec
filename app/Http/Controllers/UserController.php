@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileRequest;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -48,7 +49,17 @@ class UserController extends Controller
                 $user->fill($request->all())->save();
             }
 
-            $user->profile->fill($request->profile)->save();
+            $data = Carbon::create(
+                $request->profile['nascimento']['year'],
+                $request->profile['nascimento']['month'],
+                $request->profile['nascimento']['day'],0,0,0
+            );
+
+            $user->profile->fill($request->profile);
+
+            $user->profile->nascimento = $data->toDateTimeString();
+
+            $user->profile->save();
 
             return response()->json(['data' => 'Dados atualizados com sucesso!']);
         }

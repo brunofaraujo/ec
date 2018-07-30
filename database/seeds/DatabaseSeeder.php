@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
 
         factory(Modalidade::class, 3)->create();
 
-        factory(User::class, 50)->create()->each(function ($u) {
+        factory(User::class, 10)->create()->each(function ($u) {
             $u->profile()->save(factory(Profile::class)->make());
         });
     }

@@ -7,7 +7,7 @@ export class Profile {
   profissao: string;
   empresa: string;
   genero: string;
-  nascimento: string;
+  nascimento: any;
   rg_num: string;
   rg_expeditor: string;
   rg_estado: string;

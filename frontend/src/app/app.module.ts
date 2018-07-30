@@ -19,6 +19,7 @@ import {MainModule} from './main/main.module';
 import {MainComponent} from './main/main.component';
 import {MiscellaneousModule} from './pages/miscellaneous/miscellaneous.module';
 import {NbAuthJWTInterceptor} from './@auth/services';
+import {NgxMaskModule} from 'ngx-mask';
 
 @NgModule({
   declarations: [AppComponent, MainComponent],
@@ -30,6 +31,7 @@ import {NbAuthJWTInterceptor} from './@auth/services';
     MainModule,
     MiscellaneousModule,
 
+    NgxMaskModule.forRoot(),
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
