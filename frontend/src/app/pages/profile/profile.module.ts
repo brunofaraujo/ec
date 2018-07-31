@@ -8,6 +8,8 @@ import {NbAlertModule} from '@nebular/theme';
 import {PasswordModalComponent} from './password-modal/password-modal.component';
 import {NbAuthModule} from '../../@auth';
 import {NgxMaskModule} from 'ngx-mask';
+import {Estados} from '../../@core/data/estados';
+import {Paises} from '../../@core/data/paises';
 
 const components = [
   ProfileComponent,
@@ -27,5 +29,6 @@ const components = [
   ],
   declarations: [...components],
   entryComponents: [PasswordModalComponent],
+  providers: [Paises, Estados],
 })
 export class ProfileModule { }

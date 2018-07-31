@@ -3,6 +3,9 @@ import {UserService} from '../../@core/data/users.service';
 import {User} from '../../@core/data/user';
 import {PasswordModalComponent} from './password-modal/password-modal.component';
 import {NgbDatepickerConfig, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {log} from 'util';
+import {Estados} from '../../@core/data/estados';
+import {Paises} from '../../@core/data/paises';
 
 interface CardSettings {
   title: string;
@@ -26,12 +29,15 @@ export class ProfileComponent implements OnInit {
   public success: boolean;
   public successMsg;
   public editButton: CardSettings;
-  public birthday: NgbDateStruct;
+  public ufs;
+  public paises;
 
   constructor(
     private userService: UserService,
     private modalService: NgbModal,
     private datepickerOptions: NgbDatepickerConfig,
+    private estados: Estados,
+    private paisesProvider: Paises,
   ) {
 
     this.success = false;
@@ -51,13 +57,23 @@ export class ProfileComponent implements OnInit {
     this.getProfile();
     this.datepickerOptions.minDate = {year: 1910, month: 1, day: 1};
     this.datepickerOptions.maxDate = {year: 2018, month: 1, day: 1};
+    this.ufs = this.getEstados();
+    this.paises = this.getPaises();
+  }
+
+  getEstados() {
+    return this.estados.ESTADOS;
+  }
+
+  getPaises() {
+    return this.paisesProvider.PAISES;
   }
 
   getProfile() {
     this.userService.getProfile().subscribe(
       (data: User) => {
         this.loading = false;
-        data.profile.nascimento = this.parseDate(data.profile.nascimento);
+        data.profile.nascimento = ProfileComponent.parseDate(data.profile.nascimento);
         this.user = data;
       },
       (error) => {
@@ -94,8 +110,8 @@ export class ProfileComponent implements OnInit {
     )
   }
 
-  parseDate(date): NgbDateStruct {
-    if (date.length > 0) {
+  static parseDate(date): NgbDateStruct {
+    if (date && date.length > 0) {
       date = date.split('-');
       return {
         year: Number(date[0]),

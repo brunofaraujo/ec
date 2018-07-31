@@ -115,22 +115,25 @@
         <div class="col-sm-10 col-md-7 col-lg-4" [hidden]="editButton.on">
           <h5>{{user.profile.genero}}</h5>
         </div>
-        <div [hidden]="!editButton.on" class="col-xs-4 col-sm-4 col-md-2 col-lg-2"><input class="form-control"
-                                                                                          #genero="ngModel"
-                                                                                          id="inputGenero"
-                                                                                          [(ngModel)]="user.profile.genero"
-                                                                                          placeholder="{{user.profile.genero}}"
-                                                                                          name="profile.genero"
-                                                                                          type="text"
-                                                                                          disabled="{{!editButton.on}}"
-                                                                                          [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
-                                                                                          required>
-          <div *ngIf="genero.invalid && (genero.dirty || genero.touched)"
-               class="alert alert-danger">
+        <div [hidden]="!editButton.on" class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+            <select class="form-control" id="inputGenero"
+                    #genero="ngModel"
+                    [(ngModel)]="user.profile.genero"
+                    name="profile.genero"
+                    [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
+                    required>
+              <option value=""></option>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+              <option value="O">Outro</option>
+              <option value="X">Não informar</option>
+            </select>
+        </div>
+        <div *ngIf="genero.invalid && (genero.dirty || genero.touched)"
+             class="alert alert-danger">
 
-            <div *ngIf="genero?.errors.required">
-              Gender is required.
-            </div>
+          <div *ngIf="genero?.errors.required">
+            Gender is required.
           </div>
         </div>
       </div>
@@ -217,14 +220,14 @@
         <label class="col-sm-2 col-form-label"
                for="inputNascimento">Nascimento</label>
         <div class="col-sm-10 col-md-7 col-lg-4" [hidden]="editButton.on">
-          <h5>{{user.profile.nascimento?.day}}/{{user.profile.nascimento?.month}}/{{user.profile.nascimento?.year}}</h5>
+          <h5 *ngIf="user.profile.nascimento">{{user.profile?.nascimento?.day}}/{{user.profile?.nascimento?.month}}/{{user.profile?.nascimento?.year}}</h5>
         </div>
         <div [hidden]="!editButton.on" class="col-xs-8 col-sm-6 col-md-6 col-lg-2">
           <div class="input-group">
             <input class="form-control"
                    type="text"
                    name="nascimento"
-                   value="{{user.profile.nascimento.day}}/{{user.profile.nascimento.month}}/{{user.profile.nascimento.year}}"
+                   value="{{user.profile?.nascimento?.day}}/{{user.profile?.nascimento?.month}}/{{user.profile?.nascimento?.year}}"
                    id="displayNascimento"
                    disabled="{{editButton.on}}"
                    [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
@@ -313,16 +316,19 @@
         <div class="col-sm-10 col-md-7 col-lg-4" [hidden]="editButton.on">
           <h5>{{user.profile.rg_estado}}</h5>
         </div>
-        <div [hidden]="!editButton.on" class="col-xs-4 col-sm-4 col-md-3 col-lg-2"><input class="form-control"
-                                                                                          #rg_estado="ngModel"
-                                                                                          id="inputRgestado"
-                                                                                          [(ngModel)]="user.profile.rg_estado"
-                                                                                          placeholder="{{user.profile.rg_estado}}"
-                                                                                          name="profile.rg_estado"
-                                                                                          type="text"
-                                                                                          disabled="{{!editButton.on}}"
-                                                                                          [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
-                                                                                          required>
+        <div [hidden]="!editButton.on" class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+
+
+          <select name="profile.rg_estado"
+                  class="form-control"
+                  [(ngModel)]="user.profile.rg_estado" required #rg_estado="ngModel"
+                  disabled="{{!editButton.on}}"
+                  id="inputRgestado"
+                  [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+            <option *ngFor="let uf of ufs" [ngValue]="uf['Sigla']">
+              {{ uf["Nome"]}}
+            </option>
+          </select>
           <div *ngIf="rg_estado.invalid && (rg_estado.dirty || rg_estado.touched)"
                class="alert alert-danger">
 
@@ -490,16 +496,18 @@
         <div class="col-sm-10 col-md-7 col-lg-4" [hidden]="editButton.on">
           <h5>{{user.profile.estado}}</h5>
         </div>
-        <div [hidden]="!editButton.on" class="col-xs-4 col-sm-4 col-md-3 col-lg-2"><input class="form-control"
-                                                                                          #estado="ngModel"
-                                                                                          id="inputEstado"
-                                                                                          [(ngModel)]="user.profile.estado"
-                                                                                          placeholder="{{user.profile.estado}}"
-                                                                                          name="profile.estado"
-                                                                                          type="text"
-                                                                                          disabled="{{!editButton.on}}"
-                                                                                          [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
-                                                                                          required>
+        <div [hidden]="!editButton.on" class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+
+          <select name="profile.estado"
+                  class="form-control"
+                  [(ngModel)]="user.profile.estado" required #estado="ngModel"
+                  disabled="{{!editButton.on}}"
+                  id="inputEstado"
+                  [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+            <option *ngFor="let estado of ufs" [ngValue]="estado['Sigla']">
+              {{ estado["Nome"]}}
+            </option>
+          </select>
           <div *ngIf="estado.invalid && (estado.dirty || estado.touched)"
                class="alert alert-danger">
 
@@ -516,20 +524,25 @@
         <div class="col-sm-10 col-md-7 col-lg-4" [hidden]="editButton.on">
           <h5>{{user.profile.pais}}</h5>
         </div>
-        <div [hidden]="!editButton.on" class="col-xs-4 col-sm-5 col-md-3 col-lg-3"><input class="form-control"
-                                                                                          #pais="ngModel" id="inputPais"
-                                                                                          [(ngModel)]="user.profile.pais"
-                                                                                          placeholder="{{user.profile.pais}}"
-                                                                                          name="profile.pais"
-                                                                                          type="text"
-                                                                                          disabled="{{!editButton.on}}"
-                                                                                          [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}"
-                                                                                          required>
+        <div [hidden]="!editButton.on" class="col-xs-4 col-sm-5 col-md-3 col-lg-3">
+
+
+
+          <select name="profile.pais"
+                  class="form-control"
+                  [(ngModel)]="user.profile.pais" required #pais="ngModel"
+                  disabled="{{!editButton.on}}"
+                  id="inputPais"
+                  [ngClass]="{'profile-enabled': editButton.on, 'profile-disabled': !editButton.on}">
+            <option *ngFor="let pais of paises" [ngValue]="pais['sigla']">
+              {{ pais["nome_pais"]}}
+            </option>
+          </select>
           <div *ngIf="pais.invalid && (pais.dirty || pais.touched)"
                class="alert alert-danger">
 
             <div *ngIf="pais?.errors.required">
-              País is required.
+              Country is required.
             </div>
           </div>
         </div>

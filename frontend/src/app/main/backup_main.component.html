@@ -1,0 +1,22 @@
+<nb-layout>
+  <nb-layout-header>
+    <nb-action *ngIf="isAuth">
+      <nb-card-body>
+        <nb-user size="middle"
+                 [nbContextMenu]="userMenu"
+                 [name]="user?.profile?.nome"
+                 [title]="user?.email">
+        </nb-user>
+      </nb-card-body>
+    </nb-action>
+  </nb-layout-header>
+  <nb-layout-column>
+    <a href="#" routerLink="/auth/login"><p>Login page</p></a>
+    <a href="#" routerLink="/auth/register"><p>Register page</p></a>
+    <a href="#" routerLink="/pages"><p>Pages</p></a>
+    <br>
+    <p>Is authenticated? {{isAuth|json}}</p>
+    <button *ngIf="isAuth" (click)="logout()" class="btn btn-hero-info">Logout</button>
+  </nb-layout-column>
+  <nb-layout-footer>Footer</nb-layout-footer>
+</nb-layout>
