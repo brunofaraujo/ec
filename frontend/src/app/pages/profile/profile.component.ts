@@ -3,7 +3,6 @@ import {UserService} from '../../@core/data/users.service';
 import {User} from '../../@core/data/user';
 import {PasswordModalComponent} from './password-modal/password-modal.component';
 import {NgbDatepickerConfig, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {log} from 'util';
 import {Estados} from '../../@core/data/estados';
 import {Paises} from '../../@core/data/paises';
 
